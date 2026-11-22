@@ -15,20 +15,22 @@ const transport = new StdioClientTransport({
 const client = new Client({ name: 'e2e', version: '0' });
 await client.connect(transport);
 
+// [tool, arguments, items expected]: each source has more than this many results, so a short count
+// means the call or the spending cap cut results it should not have.
 const cases = [
-    ['search_ats_jobs', { companies: ['Linear'], maxJobs: 5 }],
-    ['search_google_ads', { targets: ['stripe.com'], maxAdsPerTarget: 3 }],
-    ['get_telegram_channel_posts', { channels: ['durov'], maxPostsPerChannel: 3 }],
-    ['verify_eu_company', { queries: ['FR22424761419'] }],
+    ['search_ats_jobs', { companies: ['Linear'], maxJobs: 5 }, 5],
+    ['search_google_ads', { targets: ['stripe.com'], maxAdsPerTarget: 3 }, 3],
+    ['get_telegram_channel_posts', { channels: ['durov'], maxPostsPerChannel: 3 }, 3],
+    ['verify_eu_company', { queries: ['FR22424761419'] }, 1],
 ];
 let failed = 0;
-for (const [name, args] of cases) {
+for (const [name, args, expected] of cases) {
     const t0 = Date.now();
     const res = await client.callTool({ name, arguments: args }, undefined, { timeout: 70_000 });
     const s = res.structuredContent;
-    const ok = !res.isError && s && s.itemCount > 0;
+    const ok = !res.isError && s && s.finished && s.itemCount === expected;
     if (!ok) failed++;
-    console.log(`${ok ? 'OK  ' : 'FAIL'} ${name.padEnd(28)} ${((Date.now() - t0) / 1000).toFixed(1)}s  items=${s?.itemCount ?? 0}  finished=${s?.finished ?? '-'}  ${res.isError ? res.content[0].text.slice(0, 120) : ''}`);
+    console.log(`${ok ? 'OK  ' : 'FAIL'} ${name.padEnd(28)} ${((Date.now() - t0) / 1000).toFixed(1)}s  items=${s?.itemCount ?? 0}/${expected}  finished=${s?.finished ?? '-'}  ${res.isError ? res.content[0].text.slice(0, 120) : ''}`);
 }
 await client.close();
 process.exit(failed ? 1 : 0);

@@ -24,7 +24,7 @@ jobs:
       - run: node scripts/smoke.mjs
       - run: npx mcpb validate manifest.json
   runtime-node20:
-    # The dev tools need Node 22+, the published server only needs Node 20: build on 22, run on 20.
+    # Same path as a user on Node 20 (install, build through `prepare`, start); the test runner needs Node 22+.
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -34,10 +34,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
           cache: npm
       - run: npm ci
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
       - run: node scripts/smoke.mjs

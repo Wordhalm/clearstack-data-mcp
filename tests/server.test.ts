@@ -103,8 +103,11 @@ describe('runs on real Actor output', () => {
         expect(post.text).toBe(raw[0]!.text);
         expect(post).toHaveProperty('postUrl');
         expect(post).not.toHaveProperty('reactions');
-        const expected = (raw[0]!.reactions as Array<{ countNum: number }>).reduce((s, r) => s + r.countNum, 0);
-        if (expected > 0) expect(post.reactionsTotal).toBe(expected);
+        const reactions = raw[0]!.reactions as Array<{ countNum: number; type: string }>;
+        const sum = (paid: boolean) => reactions.filter((r) => (r.type === 'paid_stars') === paid).reduce((s, r) => s + r.countNum, 0);
+        expect(reactions.some((r) => r.type === 'paid_stars')).toBe(true); // fixture comes from the fixed Actor
+        expect(post.reactionsTotal).toBe(sum(false));
+        expect(post.paidStars).toBe(sum(true));
     });
 
     it('reports paid Stars apart from reactions', async () => {
@@ -145,6 +148,42 @@ describe('long runs', () => {
         const second = (await client2.callTool({ name: 'get_run_results', arguments: { runId: 'run123' } })) as Result;
         expect(second.structuredContent!.finished).toBe(true);
         expect(second.structuredContent!.itemCount).toBe(3);
+    });
+
+    it('sends progress notifications while the run is going', async () => {
+        const { fetchImpl } = fakeApify(fixture('jobs'), ['RUNNING', 'SUCCEEDED']);
+        const client = await connect({ token: 't', fetchImpl });
+        const progress: Array<{ progress: number; message?: string }> = [];
+        const res = (await client.callTool(
+            { name: 'search_ats_jobs', arguments: { companies: ['Stripe'] } },
+            undefined,
+            { onprogress: (p) => progress.push(p) },
+        )) as Result;
+        expect(res.structuredContent!.finished).toBe(true);
+        expect(progress.length).toBeGreaterThan(0);
+        expect(progress[0]!.message).toContain('run123');
+    });
+
+    it('returns items already pushed when a run times out', async () => {
+        const { fetchImpl } = fakeApify(fixture('tg'), ['TIMED-OUT']);
+        const client = await connect({ token: 't', fetchImpl });
+        const res = (await client.callTool({ name: 'get_telegram_channel_posts', arguments: { channels: ['durov'] } })) as Result;
+        expect(res.isError).toBeFalsy();
+        expect(res.structuredContent!.itemCount).toBe(3);
+        expect(text(res)).toContain('TIMED-OUT');
+    });
+
+    it('get_run_results reuses the cap of the original call', async () => {
+        const slow = fakeApify([], ['RUNNING']);
+        let lastUrl = '';
+        const fetchImpl = (async (input: string | URL | Request, init?: RequestInit) => {
+            lastUrl = String(input);
+            return slow.fetchImpl(input, init);
+        }) as typeof fetch;
+        const client = await connect({ token: 't', fetchImpl });
+        await client.callTool({ name: 'get_telegram_channel_posts', arguments: { channels: ['a', 'b'], maxPostsPerChannel: 150 } });
+        await client.callTool({ name: 'get_run_results', arguments: { runId: 'run123' } });
+        expect(lastUrl).toContain('limit=300');
     });
 
     it('reports failed runs with a link to the log', async () => {

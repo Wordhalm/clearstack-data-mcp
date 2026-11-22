@@ -114,7 +114,7 @@ Posts from public channels, read from Telegram's public web preview. No Telegram
 | `keywords` | `[]` | Only posts containing any of them. |
 
 ```json
-{"channel":"durov","channelTitle":"Pavel Durov","channelSubscribersNum":9910000,"messageId":568,"postUrl":"https://t.me/durov/568","publishedAt":"2026-11-21T22:48:52+00:00","text":"You won't look professional in 2027 if your QR is unpimped.","viewsNum":234000,"hasVideo":true,"reactionsTotal":8640,"paidStars":1120}
+{"channel":"durov","channelTitle":"Pavel Durov","channelSubscribersNum":9910000,"messageId":568,"postUrl":"https://t.me/durov/568","publishedAt":"2026-11-21T22:48:52+00:00","text":"You won't look professional in 2027 if your QR is unpimped.","viewsNum":242000,"hasPhoto":false,"hasVideo":true,"hasDocument":false,"reactionsTotal":8870,"paidStars":1120}
 ```
 
 `paidStars` is the number of Telegram Stars paid as reactions; it is not added to `reactionsTotal`.

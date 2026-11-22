@@ -114,16 +114,19 @@ async function waitForRun(run: ApifyRun, opts: ClientOptions): Promise<ApifyRun>
 }
 
 async function collect(run: ApifyRun, limit: number, opts: ClientOptions): Promise<RunResult> {
-    if (TERMINAL_FAIL.has(run.status)) {
-        const detail = run.statusMessage ? `: ${run.statusMessage}` : '';
-        throw new ApifyError(`The Apify run ${run.id} ended with status ${run.status}${detail}. Log: https://console.apify.com/view/runs/${run.id}`);
-    }
-    const items = await call<Record<string, unknown>[]>(
+    const data = await call<Record<string, unknown>[]>(
         `/datasets/${run.defaultDatasetId}/items?clean=true&format=json&limit=${limit}`,
         { method: 'GET' },
         opts,
     );
-    return { runId: run.id, status: run.status, finished: TERMINAL_OK.has(run.status), items: Array.isArray(items) ? items : [] };
+    const items = Array.isArray(data) ? data : [];
+    if (TERMINAL_FAIL.has(run.status)) {
+        // Items pushed before a timeout or abort are already paid for: return them rather than an error.
+        if (items.length > 0) return { runId: run.id, status: run.status, finished: true, items };
+        const detail = run.statusMessage ? `: ${run.statusMessage}` : '';
+        throw new ApifyError(`The Apify run ${run.id} ended with status ${run.status}${detail}. Log: https://console.apify.com/view/runs/${run.id}`);
+    }
+    return { runId: run.id, status: run.status, finished: TERMINAL_OK.has(run.status), items };
 }
 
 /**

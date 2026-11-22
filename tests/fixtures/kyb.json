@@ -1,99 +1,5 @@
 [
  {
-  "query": "FR22424761419",
-  "detectedType": "EU_VAT",
-  "found": true,
-  "kybStatus": "PARTIAL",
-  "country": "FR",
-  "legalName": "OVH (OVHCLOUD)",
-  "registrationNumber": "424761419",
-  "vatNumber": "FR22424761419",
-  "vatValid": false,
-  "leiCode": "9695007586GCAKPYJ703",
-  "status": "ACTIVE",
-  "legalForm": "5710",
-  "activityCode": "63.11Z",
-  "incorporationDate": "1999-10-15",
-  "employeeBand": "51",
-  "latestRevenueEur": 976044000,
-  "latestNetIncomeEur": 23558000,
-  "latestFinancialYear": "2025",
-  "address": {
-   "full": "2 RUE KELLERMANN 59100 ROUBAIX",
-   "street": "2 RUE KELLERMANN",
-   "postalCode": "59100",
-   "city": "ROUBAIX",
-   "country": "FR"
-  },
-  "officers": [
-   {
-    "name": "LAURENT ALLARD (ALLARD)",
-    "role": "Directeur Général",
-    "type": "INDIVIDUAL"
-   },
-   {
-    "name": "OCTAVE KLABA",
-    "role": "Président de SAS",
-    "type": "INDIVIDUAL"
-   },
-   {
-    "name": "MICHEL PAULIN",
-    "role": "Président de SAS",
-    "type": "INDIVIDUAL"
-   },
-   {
-    "name": "KPMG S.A.",
-    "role": "Commissaire aux comptes titulaire",
-    "type": "COMPANY"
-   },
-   {
-    "name": "GRANT THORNTON",
-    "role": "Commissaire aux comptes titulaire",
-    "type": "COMPANY"
-   }
-  ],
-  "sourcesUsed": [
-   "EU_VIES",
-   "FR_DINUM_SIRENE_RNE",
-   "GLEIF_LEI"
-  ],
-  "registryUrls": [
-   "https://annuaire-entreprises.data.gouv.fr/entreprise/424761419",
-   "https://search.gleif.org/#/record/9695007586GCAKPYJ703"
-  ],
-  "vies": {
-   "valid": false,
-   "countryCode": "FR",
-   "vatNumber": "22424761419",
-   "fullVatNumber": "FR22424761419",
-   "name": null,
-   "address": null,
-   "requestDate": null,
-   "error": null
-  },
-  "registryDetails": {
-   "FR_DINUM_SIRENE_RNE": {
-    "siren": "424761419",
-    "headquartersSiret": "42476141900045",
-    "openEstablishments": 22,
-    "companyCategory": "ETI",
-    "isEmployer": null,
-    "lastUpdatedInsee": "2025-12-06T05:25:30",
-    "lastUpdatedRne": "2026-10-29T07:22:19"
-   },
-   "GLEIF_LEI": {
-    "lei": "9695007586GCAKPYJ703",
-    "jurisdiction": "FR",
-    "registrationStatus": "ISSUED",
-    "registeredAtId": "RA000189",
-    "registeredAs": "424761419",
-    "bic": null
-   }
-  },
-  "checkedAt": "2026-11-22T02:18:19.524Z",
-  "error": null
- },
- {
   "query": "CHE-105.909.036",
   "detectedType": "CH_UID",
   "found": true,
@@ -150,7 +56,7 @@
     ]
    }
   },
-  "checkedAt": "2026-11-22T02:18:19.537Z",
+  "checkedAt": "2026-11-22T02:34:55.557Z",
   "error": null
  },
  {
@@ -208,7 +114,101 @@
     ]
    }
   },
-  "checkedAt": "2026-11-22T02:18:19.538Z",
+  "checkedAt": "2026-11-22T02:34:55.558Z",
+  "error": null
+ },
+ {
+  "query": "FR22424761419",
+  "detectedType": "EU_VAT",
+  "found": true,
+  "kybStatus": "VERIFIED_ACTIVE",
+  "country": "FR",
+  "legalName": "OVH (OVHCLOUD)",
+  "registrationNumber": "424761419",
+  "vatNumber": "FR22424761419",
+  "vatValid": true,
+  "leiCode": "9695007586GCAKPYJ703",
+  "status": "ACTIVE",
+  "legalForm": "5710",
+  "activityCode": "63.11Z",
+  "incorporationDate": "1999-10-15",
+  "employeeBand": "51",
+  "latestRevenueEur": 976044000,
+  "latestNetIncomeEur": 23558000,
+  "latestFinancialYear": "2025",
+  "address": {
+   "full": "2 RUE KELLERMANN 59100 ROUBAIX",
+   "street": "2 RUE KELLERMANN",
+   "postalCode": "59100",
+   "city": "ROUBAIX",
+   "country": "FR"
+  },
+  "officers": [
+   {
+    "name": "LAURENT ALLARD (ALLARD)",
+    "role": "Directeur Général",
+    "type": "INDIVIDUAL"
+   },
+   {
+    "name": "OCTAVE KLABA",
+    "role": "Président de SAS",
+    "type": "INDIVIDUAL"
+   },
+   {
+    "name": "MICHEL PAULIN",
+    "role": "Président de SAS",
+    "type": "INDIVIDUAL"
+   },
+   {
+    "name": "KPMG S.A.",
+    "role": "Commissaire aux comptes titulaire",
+    "type": "COMPANY"
+   },
+   {
+    "name": "GRANT THORNTON",
+    "role": "Commissaire aux comptes titulaire",
+    "type": "COMPANY"
+   }
+  ],
+  "sourcesUsed": [
+   "EU_VIES",
+   "FR_DINUM_SIRENE_RNE",
+   "GLEIF_LEI"
+  ],
+  "registryUrls": [
+   "https://annuaire-entreprises.data.gouv.fr/entreprise/424761419",
+   "https://search.gleif.org/#/record/9695007586GCAKPYJ703"
+  ],
+  "vies": {
+   "valid": true,
+   "countryCode": "FR",
+   "vatNumber": "22424761419",
+   "fullVatNumber": "FR22424761419",
+   "name": "SAS OVH",
+   "address": "2 RUE KELLERMANN, 59100 ROUBAIX",
+   "requestDate": "2026-11-22T02:35:04.201Z",
+   "error": null
+  },
+  "registryDetails": {
+   "FR_DINUM_SIRENE_RNE": {
+    "siren": "424761419",
+    "headquartersSiret": "42476141900045",
+    "openEstablishments": 22,
+    "companyCategory": "ETI",
+    "isEmployer": null,
+    "lastUpdatedInsee": "2025-12-06T05:25:30",
+    "lastUpdatedRne": "2026-10-29T07:22:19"
+   },
+   "GLEIF_LEI": {
+    "lei": "9695007586GCAKPYJ703",
+    "jurisdiction": "FR",
+    "registrationStatus": "ISSUED",
+    "registeredAtId": "RA000189",
+    "registeredAs": "424761419",
+    "bic": null
+   }
+  },
+  "checkedAt": "2026-11-22T02:34:55.524Z",
   "error": null
  }
 ]

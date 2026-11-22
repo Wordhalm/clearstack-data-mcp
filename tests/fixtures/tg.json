@@ -8,8 +8,8 @@
   "postUrl": "https://t.me/durov/568",
   "publishedAt": "2026-11-21T22:48:52+00:00",
   "text": "You won't look professional in 2027 if your QR is unpimped.",
-  "views": "234K",
-  "viewsNum": 234000,
+  "views": "242K",
+  "viewsNum": 242000,
   "hasPhoto": false,
   "hasVideo": true,
   "hasDocument": false,
@@ -21,29 +21,37 @@
   "replyToMessageId": null,
   "reactions": [
    {
-    "emoji": "reaction",
+    "emoji": "⭐",
+    "type": "paid_stars",
+    "customEmojiId": null,
     "countText": "1.12K",
     "countNum": 1120
    },
    {
-    "emoji": "reaction",
-    "countText": "5.18K",
-    "countNum": 5180
+    "emoji": "custom:5373223594484587136",
+    "type": "custom_emoji",
+    "customEmojiId": "5373223594484587136",
+    "countText": "5.34K",
+    "countNum": 5340
    },
    {
-    "emoji": "reaction",
-    "countText": "1.73K",
-    "countNum": 1730
+    "emoji": "custom:5399847211989246390",
+    "type": "custom_emoji",
+    "customEmojiId": "5399847211989246390",
+    "countText": "1.77K",
+    "countNum": 1770
    },
    {
-    "emoji": "reaction",
-    "countText": "1.73K",
-    "countNum": 1730
+    "emoji": "custom:5334575279731909928",
+    "type": "custom_emoji",
+    "customEmojiId": "5334575279731909928",
+    "countText": "1.76K",
+    "countNum": 1760
    }
   ],
   "matchedKeywords": [],
   "isNewSinceLastRun": true,
-  "scrapedAt": "2026-11-22T02:16:59.103Z"
+  "scrapedAt": "2026-11-22T02:35:19.737Z"
  },
  {
   "channel": "durov",
@@ -54,8 +62,8 @@
   "postUrl": "https://t.me/durov/567",
   "publishedAt": "2026-11-20T20:47:30+00:00",
   "text": "I was offered $256,000 for the @pride username on Telegram.\n\nI don’t need the username.\n\nBut if I sell, does that mean I sold my pride? 🤔",
-  "views": "892K",
-  "viewsNum": 892000,
+  "views": "895K",
+  "viewsNum": 895000,
   "hasPhoto": false,
   "hasVideo": false,
   "hasDocument": false,
@@ -69,29 +77,37 @@
   "replyToMessageId": null,
   "reactions": [
    {
-    "emoji": "reaction",
+    "emoji": "⭐",
+    "type": "paid_stars",
+    "customEmojiId": null,
     "countText": "18.5K",
     "countNum": 18500
    },
    {
-    "emoji": "reaction",
-    "countText": "36.6K",
-    "countNum": 36600
+    "emoji": "custom:5399847211989246390",
+    "type": "custom_emoji",
+    "customEmojiId": "5399847211989246390",
+    "countText": "36.7K",
+    "countNum": 36700
    },
    {
-    "emoji": "reaction",
+    "emoji": "custom:5373223594484587136",
+    "type": "custom_emoji",
+    "customEmojiId": "5373223594484587136",
     "countText": "14.8K",
     "countNum": 14800
    },
    {
-    "emoji": "reaction",
+    "emoji": "custom:5334575279731909928",
+    "type": "custom_emoji",
+    "customEmojiId": "5334575279731909928",
     "countText": "9.32K",
     "countNum": 9320
    }
   ],
   "matchedKeywords": [],
   "isNewSinceLastRun": true,
-  "scrapedAt": "2026-11-22T02:16:59.103Z"
+  "scrapedAt": "2026-11-22T02:35:19.737Z"
  },
  {
   "channel": "durov",
@@ -115,28 +131,36 @@
   "replyToMessageId": null,
   "reactions": [
    {
-    "emoji": "reaction",
+    "emoji": "⭐",
+    "type": "paid_stars",
+    "customEmojiId": null,
     "countText": "10.8K",
     "countNum": 10800
    },
    {
-    "emoji": "reaction",
+    "emoji": "custom:5373223594484587136",
+    "type": "custom_emoji",
+    "customEmojiId": "5373223594484587136",
     "countText": "37.7K",
     "countNum": 37700
    },
    {
-    "emoji": "reaction",
+    "emoji": "custom:5399847211989246390",
+    "type": "custom_emoji",
+    "customEmojiId": "5399847211989246390",
     "countText": "12K",
     "countNum": 12000
    },
    {
-    "emoji": "reaction",
+    "emoji": "custom:5334575279731909928",
+    "type": "custom_emoji",
+    "customEmojiId": "5334575279731909928",
     "countText": "8.2K",
     "countNum": 8200
    }
   ],
   "matchedKeywords": [],
   "isNewSinceLastRun": true,
-  "scrapedAt": "2026-11-22T02:16:59.103Z"
+  "scrapedAt": "2026-11-22T02:35:19.737Z"
  }
 ]

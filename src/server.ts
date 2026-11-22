@@ -134,7 +134,9 @@ function render(spec: ActorSpec | null, actorLabel: string, result: RunResult): 
         items,
     };
     let header: string;
-    if (!result.finished) {
+    if (result.status !== 'SUCCEEDED' && result.finished) {
+        header = `The Apify run ${result.runId} ended with status ${result.status} after returning ${items.length} item(s); they are below. Log: https://console.apify.com/view/runs/${result.runId}`;
+    } else if (!result.finished) {
         header = `Run ${result.runId} is still ${result.status.toLowerCase()}; ${items.length} item(s) so far. Call get_run_results with runId "${result.runId}" for the rest.`;
     } else if (items.length === 0) {
         header = `No results from https://apify.com/${actorLabel}. ${spec?.emptyHint ?? ''}`.trim();
@@ -153,8 +155,8 @@ const readOnly = { readOnlyHint: true, destructiveHint: false, openWorldHint: tr
 
 export function createServer(opts: ServerOptions = {}): McpServer {
     const server = new McpServer({ name: 'clearstack-data', version: VERSION }, { instructions: INSTRUCTIONS });
-    /** Remembers which tool started a run, so get_run_results can shape its items the same way. */
-    const runSpecs = new Map<string, ActorSpec>();
+    /** Remembers which tool started a run and its item cap, so get_run_results can return the same shape and size. */
+    const runSpecs = new Map<string, { spec: ActorSpec; maxItems: number }>();
 
     async function execute(spec: ActorSpec, input: Item, items: number, extra?: Extra): Promise<ToolResult> {
         try {
@@ -164,7 +166,7 @@ export function createServer(opts: ServerOptions = {}): McpServer {
                 { maxItems: items, maxTotalChargeUsd: spendCap(spec.startUsd, spec.perItemUsd, items) },
                 clientOptions(opts, extra),
             );
-            runSpecs.set(result.runId, spec);
+            runSpecs.set(result.runId, { spec, maxItems: items });
             return render(spec, spec.id, result);
         } catch (err) {
             return failure(err);
@@ -276,15 +278,16 @@ export function createServer(opts: ServerOptions = {}): McpServer {
                 'When another tool returned finished=false, wait for that Apify run and return its items. No extra cost: the run is already paid for.',
             inputSchema: {
                 runId: z.string().min(5).describe('runId returned by a previous tool call.'),
-                maxItems: z.number().int().min(1).max(2000).default(500),
+                maxItems: z.number().int().min(1).max(2000).optional().describe('Defaults to the cap of the original call.'),
             },
             outputSchema,
             annotations: { ...readOnly, idempotentHint: true, title: 'Get results of a running search' },
         },
         async ({ runId, maxItems }, extra) => {
             try {
-                const result = await getRunResults(runId, maxItems, clientOptions(opts, extra as Extra));
-                const spec = runSpecs.get(runId) ?? null;
+                const known = runSpecs.get(runId);
+                const result = await getRunResults(runId, maxItems ?? known?.maxItems ?? 2000, clientOptions(opts, extra as Extra));
+                const spec = known?.spec ?? null;
                 return render(spec, spec?.id ?? result.actId, result);
             } catch (err) {
                 return failure(err);
