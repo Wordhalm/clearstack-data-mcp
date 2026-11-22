@@ -1,0 +1,214 @@
+[
+ {
+  "query": "FR22424761419",
+  "detectedType": "EU_VAT",
+  "found": true,
+  "kybStatus": "PARTIAL",
+  "country": "FR",
+  "legalName": "OVH (OVHCLOUD)",
+  "registrationNumber": "424761419",
+  "vatNumber": "FR22424761419",
+  "vatValid": false,
+  "leiCode": "9695007586GCAKPYJ703",
+  "status": "ACTIVE",
+  "legalForm": "5710",
+  "activityCode": "63.11Z",
+  "incorporationDate": "1999-10-15",
+  "employeeBand": "51",
+  "latestRevenueEur": 976044000,
+  "latestNetIncomeEur": 23558000,
+  "latestFinancialYear": "2025",
+  "address": {
+   "full": "2 RUE KELLERMANN 59100 ROUBAIX",
+   "street": "2 RUE KELLERMANN",
+   "postalCode": "59100",
+   "city": "ROUBAIX",
+   "country": "FR"
+  },
+  "officers": [
+   {
+    "name": "LAURENT ALLARD (ALLARD)",
+    "role": "Directeur Général",
+    "type": "INDIVIDUAL"
+   },
+   {
+    "name": "OCTAVE KLABA",
+    "role": "Président de SAS",
+    "type": "INDIVIDUAL"
+   },
+   {
+    "name": "MICHEL PAULIN",
+    "role": "Président de SAS",
+    "type": "INDIVIDUAL"
+   },
+   {
+    "name": "KPMG S.A.",
+    "role": "Commissaire aux comptes titulaire",
+    "type": "COMPANY"
+   },
+   {
+    "name": "GRANT THORNTON",
+    "role": "Commissaire aux comptes titulaire",
+    "type": "COMPANY"
+   }
+  ],
+  "sourcesUsed": [
+   "EU_VIES",
+   "FR_DINUM_SIRENE_RNE",
+   "GLEIF_LEI"
+  ],
+  "registryUrls": [
+   "https://annuaire-entreprises.data.gouv.fr/entreprise/424761419",
+   "https://search.gleif.org/#/record/9695007586GCAKPYJ703"
+  ],
+  "vies": {
+   "valid": false,
+   "countryCode": "FR",
+   "vatNumber": "22424761419",
+   "fullVatNumber": "FR22424761419",
+   "name": null,
+   "address": null,
+   "requestDate": null,
+   "error": null
+  },
+  "registryDetails": {
+   "FR_DINUM_SIRENE_RNE": {
+    "siren": "424761419",
+    "headquartersSiret": "42476141900045",
+    "openEstablishments": 22,
+    "companyCategory": "ETI",
+    "isEmployer": null,
+    "lastUpdatedInsee": "2025-12-06T05:25:30",
+    "lastUpdatedRne": "2026-10-29T07:22:19"
+   },
+   "GLEIF_LEI": {
+    "lei": "9695007586GCAKPYJ703",
+    "jurisdiction": "FR",
+    "registrationStatus": "ISSUED",
+    "registeredAtId": "RA000189",
+    "registeredAs": "424761419",
+    "bic": null
+   }
+  },
+  "checkedAt": "2026-11-22T02:18:19.524Z",
+  "error": null
+ },
+ {
+  "query": "CHE-105.909.036",
+  "detectedType": "CH_UID",
+  "found": true,
+  "kybStatus": "VERIFIED_ACTIVE",
+  "country": "CH",
+  "legalName": "Nestlé AG",
+  "registrationNumber": "CHE-105.909.036",
+  "vatNumber": null,
+  "vatValid": null,
+  "leiCode": "KY37LUS27QQX7BB93L28",
+  "status": "ACTIVE",
+  "legalForm": "CH_LEGAL_FORM_3",
+  "activityCode": null,
+  "incorporationDate": "2000-06-25",
+  "employeeBand": null,
+  "latestRevenueEur": null,
+  "latestNetIncomeEur": null,
+  "latestFinancialYear": null,
+  "address": {
+   "full": "Cham, Switzerland",
+   "street": "AVENUE NESTLE 55",
+   "postalCode": "1800",
+   "city": "Cham",
+   "country": "CH"
+  },
+  "officers": [],
+  "sourcesUsed": [
+   "CH_ZEFIX",
+   "GLEIF_LEI"
+  ],
+  "registryUrls": [
+   "https://zg.chregister.ch/cr-portal/auszug/auszug.xhtml?uid=CHE-105.909.036",
+   "https://search.gleif.org/#/record/KY37LUS27QQX7BB93L28"
+  ],
+  "vies": null,
+  "registryDetails": {
+   "CH_ZEFIX": {
+    "uid": "CHE105909036",
+    "uidFormatted": "CHE-105.909.036",
+    "chidFormatted": "CH-170-3001001-3",
+    "ehraid": 126286,
+    "rawStatus": "EXISTIEREND",
+    "shabDate": "2026-10-12",
+    "deleteDate": null
+   },
+   "GLEIF_LEI": {
+    "lei": "KY37LUS27QQX7BB93L28",
+    "jurisdiction": "CH",
+    "registrationStatus": "ISSUED",
+    "registeredAtId": "RA000549",
+    "registeredAs": "CHE-105.909.036",
+    "bic": [
+     "NESNCH22XXX"
+    ]
+   }
+  },
+  "checkedAt": "2026-11-22T02:18:19.537Z",
+  "error": null
+ },
+ {
+  "query": "NO:923609016",
+  "detectedType": "NO_ORGNR",
+  "found": true,
+  "kybStatus": "VERIFIED_ACTIVE",
+  "country": "NO",
+  "legalName": "EQUINOR ASA",
+  "registrationNumber": "923609016",
+  "vatNumber": "NO923609016MVA",
+  "vatValid": null,
+  "leiCode": "OW6OFBNCKXC4US5C7523",
+  "status": "ACTIVE",
+  "legalForm": "ASA",
+  "activityCode": "06.100",
+  "incorporationDate": "1972-09-18",
+  "employeeBand": "21182",
+  "latestRevenueEur": null,
+  "latestNetIncomeEur": null,
+  "latestFinancialYear": null,
+  "address": {
+   "full": "Forusbeen 50, 4035, STAVANGER, NO",
+   "street": "Forusbeen 50",
+   "postalCode": "4035",
+   "city": "STAVANGER",
+   "country": "NO"
+  },
+  "officers": [],
+  "sourcesUsed": [
+   "NO_BRREG",
+   "GLEIF_LEI"
+  ],
+  "registryUrls": [
+   "https://virksomhet.brreg.no/en/oppslag/enheter/923609016",
+   "https://search.gleif.org/#/record/OW6OFBNCKXC4US5C7523"
+  ],
+  "vies": null,
+  "registryDetails": {
+   "NO_BRREG": {
+    "organisasjonsnummer": "923609016",
+    "mvaRegistered": true,
+    "employeesCount": 21182,
+    "naceDescription": "Utvinning av råolje",
+    "website": "www.equinor.com"
+   },
+   "GLEIF_LEI": {
+    "lei": "OW6OFBNCKXC4US5C7523",
+    "jurisdiction": "NO",
+    "registrationStatus": "ISSUED",
+    "registeredAtId": "RA000472",
+    "registeredAs": "923 609 016",
+    "bic": [
+     "SASANO22XXX"
+    ]
+   }
+  },
+  "checkedAt": "2026-11-22T02:18:19.538Z",
+  "error": null
+ }
+]

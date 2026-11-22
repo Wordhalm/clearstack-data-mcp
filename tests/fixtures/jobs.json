@@ -1,0 +1,53 @@
+[
+ {
+  "company": "Airbnb",
+  "companySlug": "airbnb",
+  "ats": "greenhouse",
+  "jobId": "gh:airbnb:8365363",
+  "title": "Account Executive (Hotels)",
+  "location": "Barcelona, Spain",
+  "isRemote": false,
+  "department": null,
+  "team": null,
+  "employmentType": null,
+  "publishedAt": "2026-11-10",
+  "applyUrl": "https://careers.airbnb.com/positions/8365363?gh_jid=8365363",
+  "matchedKeywords": [],
+  "isNewSinceLastRun": true,
+  "fetchedAt": "2026-11-22T02:15:52.945Z"
+ },
+ {
+  "company": "Anthropic",
+  "companySlug": "anthropic",
+  "ats": "greenhouse",
+  "jobId": "gh:anthropic:5456619008",
+  "title": "3P Revenue Accounting & Reporting",
+  "location": "San Francisco, CA | Seattle, WA",
+  "isRemote": false,
+  "department": null,
+  "team": null,
+  "employmentType": null,
+  "publishedAt": "2026-10-19",
+  "applyUrl": "https://job-boards.greenhouse.io/anthropic/jobs/5456619008",
+  "matchedKeywords": [],
+  "isNewSinceLastRun": true,
+  "fetchedAt": "2026-11-22T02:15:52.945Z"
+ },
+ {
+  "company": "Stripe",
+  "companySlug": "stripe",
+  "ats": "greenhouse",
+  "jobId": "gh:stripe:8172510",
+  "title": "Abuse Investigator",
+  "location": "Seattle, San Francisco, New York City",
+  "isRemote": false,
+  "department": null,
+  "team": null,
+  "employmentType": null,
+  "publishedAt": "2026-09-09",
+  "applyUrl": "https://stripe.com/jobs/search?gh_jid=8172510",
+  "matchedKeywords": [],
+  "isNewSinceLastRun": true,
+  "fetchedAt": "2026-11-22T02:15:52.945Z"
+ }
+]

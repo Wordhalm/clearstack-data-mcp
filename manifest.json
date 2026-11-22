@@ -1,0 +1,89 @@
+{
+  "manifest_version": "0.3",
+  "name": "clearstack-data-mcp",
+  "display_name": "ClearStack Data: B2B Signals",
+  "version": "0.2.0",
+  "description": "Job openings, Google Ads, Telegram posts and EU VAT checks for AI assistants, via Apify.",
+  "long_description": "Ask Claude which companies are hiring for a role, what ads a competitor runs on Google, what a public Telegram channel posted this week, or whether an EU VAT number is valid. Each tool runs a ClearStack Data Actor on Apify with your own Apify API token, and every call carries a spending cap. Typical cost: a few cents per question.",
+  "author": {
+    "name": "ClearStack Data",
+    "url": "https://apify.com/clearstack-data"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wordhalm/clearstack-data-mcp.git"
+  },
+  "homepage": "https://github.com/Wordhalm/clearstack-data-mcp",
+  "documentation": "https://github.com/Wordhalm/clearstack-data-mcp#readme",
+  "support": "https://github.com/Wordhalm/clearstack-data-mcp/issues",
+  "icon": "assets/icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.js"
+      ],
+      "env": {
+        "APIFY_TOKEN": "${user_config.apify_token}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "search_ats_jobs",
+      "description": "Open roles from company career sites on Greenhouse, Lever, Ashby and SmartRecruiters (25,787 employers)."
+    },
+    {
+      "name": "search_google_ads",
+      "description": "Ads a company runs on Google, from the public Google Ads Transparency Center."
+    },
+    {
+      "name": "get_telegram_channel_posts",
+      "description": "Recent posts from public Telegram channels, no Telegram account needed."
+    },
+    {
+      "name": "verify_eu_company",
+      "description": "EU VAT validation (VIES) and official company registry record."
+    },
+    {
+      "name": "get_run_results",
+      "description": "Finish a search whose Apify run was still going."
+    }
+  ],
+  "keywords": [
+    "apify",
+    "jobs",
+    "hiring",
+    "greenhouse",
+    "lever",
+    "ashby",
+    "google-ads",
+    "telegram",
+    "vat",
+    "kyb",
+    "b2b",
+    "research"
+  ],
+  "license": "MIT",
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  },
+  "user_config": {
+    "apify_token": {
+      "type": "string",
+      "title": "Apify API token",
+      "description": "Your Apify API token, from https://console.apify.com/settings/integrations. Calls are billed to this Apify account.",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}
