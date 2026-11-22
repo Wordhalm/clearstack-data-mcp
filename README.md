@@ -48,12 +48,12 @@ Requires Node.js 18 or later.
 
 ## Cost control
 
-- Every tool has a result cap (`maxJobs`, `maxAdsPerTarget`, `maxPostsPerChannel`) that is also sent to Apify as `maxItems`, so a run cannot return or charge more than that.
+- Every tool has a result cap (`maxJobs`, `maxAdsPerTarget`, `maxPostsPerChannel`, or the number of queries). The server turns it into Apify's `maxTotalChargeUsd`, so a call cannot cost more than the cap times the listed price.
 - Runs wait up to 120 seconds. Large requests are better run on a schedule from the Actor pages on Apify.
 
 ## Why not the generic Apify MCP server?
 
-[Apify's own MCP server](https://github.com/apify/apify-mcp-server) can call any of the Store's Actors, which means the model has to search, pick and configure one first. This package exposes four tools with typed inputs and trimmed outputs, so the model calls the right Actor directly and the answer uses fewer tokens.
+[Apify's own MCP server](https://github.com/apify/apify-mcp-server) can load these Actors too (`?tools=clearstack-data/career-site-jobs-search,…`) and exposes their full input schemas. This package wraps them with fewer, plainer parameters, drops output fields a model rarely needs, and sets a spending cap on every call. Use whichever suits your client.
 
 ## Development
 

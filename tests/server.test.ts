@@ -34,7 +34,7 @@ describe('clearstack-data MCP server', () => {
 
         const [url, init] = fetchImpl.mock.calls[0]!;
         expect(String(url)).toBe(
-            'https://api.apify.com/v2/acts/clearstack-data~career-site-jobs-search/run-sync-get-dataset-items?timeout=120&maxItems=10&format=json&clean=true',
+            'https://api.apify.com/v2/acts/clearstack-data~career-site-jobs-search/run-sync-get-dataset-items?timeout=120&maxItems=10&maxTotalChargeUsd=0.0170&format=json&clean=true',
         );
         expect(String(url)).not.toContain('secret-token');
         expect((init!.headers as Record<string, string>).Authorization).toBe('Bearer secret-token');

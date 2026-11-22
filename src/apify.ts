@@ -9,8 +9,10 @@ export class ApifyError extends Error {
 
 export interface RunOptions {
     token: string | undefined;
-    /** Upper bound on dataset items returned (and charged, for pay-per-event Actors). */
+    /** Upper bound on dataset items (Apify enforces it for pay-per-result Actors only). */
     maxItems: number;
+    /** Upper bound on what the run may charge, enforced by Apify for pay-per-event Actors. */
+    maxTotalChargeUsd: number;
     /** Seconds Apify waits for the run before giving up. run-sync allows up to 300. */
     timeoutSecs?: number;
     fetchImpl?: typeof fetch;
@@ -23,7 +25,7 @@ export interface RunOptions {
 export async function runActor(
     actorId: string,
     input: Record<string, unknown>,
-    { token, maxItems, timeoutSecs = 120, fetchImpl = fetch }: RunOptions,
+    { token, maxItems, maxTotalChargeUsd, timeoutSecs = 120, fetchImpl = fetch }: RunOptions,
 ): Promise<Record<string, unknown>[]> {
     if (!token) {
         throw new ApifyError(
@@ -33,7 +35,7 @@ export async function runActor(
     }
     const url =
         `${APIFY_API}/acts/${actorId.replace('/', '~')}/run-sync-get-dataset-items` +
-        `?timeout=${timeoutSecs}&maxItems=${maxItems}&format=json&clean=true`;
+        `?timeout=${timeoutSecs}&maxItems=${maxItems}&maxTotalChargeUsd=${maxTotalChargeUsd.toFixed(4)}&format=json&clean=true`;
 
     let res: Response;
     try {

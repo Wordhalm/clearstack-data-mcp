@@ -32,12 +32,13 @@ async function execute(
     actorId: string,
     input: Record<string, unknown>,
     maxItems: number,
+    maxTotalChargeUsd: number,
     fields: readonly string[] | null,
     opts: ServerOptions,
     emptyHint: string,
 ): Promise<ToolResult> {
     try {
-        const items = await runActor(actorId, input, { token: opts.token, maxItems, fetchImpl: opts.fetchImpl });
+        const items = await runActor(actorId, input, { token: opts.token, maxItems, maxTotalChargeUsd, fetchImpl: opts.fetchImpl });
         const rows = fields ? items.map((i) => pick(i, fields)) : items;
         const header = rows.length
             ? `${rows.length} result(s) from https://apify.com/${actorId}`
@@ -75,8 +76,9 @@ export function createServer(opts: ServerOptions = {}): McpServer {
         async ({ companies, keywords, location, remoteOnly, maxJobs }) =>
             execute(
                 ACTORS.jobs,
-                { companies, keywords, location, remoteOnly, maxJobsTotal: maxJobs, discoveryPreset: 'TOP_TECH_AI' },
+                { companies, keywords, location, remoteOnly, maxJobsTotal: maxJobs, discoveryPreset: 'TOP_TECH_AI', maxCompaniesToScan: 35 },
                 maxJobs,
+                0.002 + 0.0015 * maxJobs,
                 JOB_FIELDS,
                 opts,
                 'Try fewer keywords, another spelling of the company, or the job board URL.',
@@ -106,6 +108,7 @@ export function createServer(opts: ServerOptions = {}): McpServer {
                 ACTORS.googleAds,
                 { targets, region, format, dateRangeDays, maxAdsPerTarget },
                 Math.min(targets.length * maxAdsPerTarget, 2000),
+                0.002 + 0.0012 * Math.min(targets.length * maxAdsPerTarget, 2000),
                 AD_FIELDS,
                 opts,
                 'The advertiser may not run Google Ads under that domain, or not in that region and period.',
@@ -132,6 +135,7 @@ export function createServer(opts: ServerOptions = {}): McpServer {
                 ACTORS.telegram,
                 { channels, maxMessagesPerChannel: maxPostsPerChannel, sinceDate, keywords, includeMediaUrls: false },
                 Math.min(channels.length * maxPostsPerChannel, 2000),
+                0.002 + 0.0015 * Math.min(channels.length * maxPostsPerChannel, 2000),
                 null,
                 opts,
                 'Check that the channel is public (https://t.me/s/<name> must open in a browser).',
@@ -158,6 +162,7 @@ export function createServer(opts: ServerOptions = {}): McpServer {
                 ACTORS.kyb,
                 { queries, defaultCountry, validateVat: true, enrichGleifLei: true },
                 queries.length,
+                0.004 * queries.length,
                 KYB_FIELDS,
                 opts,
                 'Check the identifier format.',
