@@ -66,7 +66,7 @@ Same block as Claude Desktop, in `.cursor/mcp.json` (Cursor) or `~/.codeium/wind
 }
 ```
 
-The first start takes about a minute while npx downloads and builds the server.
+The first start takes up to a minute while npx downloads and builds the server (41 s measured on a cold cache).
 
 ## Tools
 
