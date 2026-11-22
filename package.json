@@ -1,0 +1,55 @@
+{
+  "name": "clearstack-data-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for B2B signals: open roles on 25,787 company career sites (Greenhouse, Lever, Ashby, SmartRecruiters), Google Ads Transparency Center ads, public Telegram channel posts, and EU VAT/company registry checks. Runs ClearStack Data Actors on Apify with your own token.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "mcp-server",
+    "claude",
+    "apify",
+    "job-search",
+    "greenhouse",
+    "lever",
+    "ashby",
+    "google-ads",
+    "telegram",
+    "vat",
+    "kyb",
+    "hiring-signals"
+  ],
+  "homepage": "https://github.com/Wordhalm/clearstack-data-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wordhalm/clearstack-data-mcp.git"
+  },
+  "license": "MIT",
+  "author": "ClearStack Data",
+  "type": "module",
+  "bin": {
+    "clearstack-data-mcp": "dist/index.js"
+  },
+  "main": "dist/server.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.1"
+  }
+}
