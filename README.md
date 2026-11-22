@@ -27,7 +27,7 @@ Example prompts:
 **Claude Code**
 
 ```
-claude mcp add clearstack-data -e APIFY_TOKEN=your_token -- npx -y clearstack-data-mcp
+claude mcp add clearstack-data -e APIFY_TOKEN=your_token -- npx -y github:Wordhalm/clearstack-data-mcp
 ```
 
 **Claude Desktop, Cursor, Windsurf** (`claude_desktop_config.json`, `.cursor/mcp.json`, …)
@@ -37,14 +37,14 @@ claude mcp add clearstack-data -e APIFY_TOKEN=your_token -- npx -y clearstack-da
   "mcpServers": {
     "clearstack-data": {
       "command": "npx",
-      "args": ["-y", "clearstack-data-mcp"],
+      "args": ["-y", "github:Wordhalm/clearstack-data-mcp"],
       "env": { "APIFY_TOKEN": "your_token" }
     }
   }
 }
 ```
 
-Requires Node.js 18 or later.
+Requires Node.js 18 or later. The first start takes a minute: npx downloads the repository and builds it.
 
 ## Cost control
 
