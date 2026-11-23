@@ -1,0 +1,29 @@
+# ClearStack Data MCP Server
+
+> Model Context Protocol (MCP) server exposing four live B2B research tools (career-site job openings, Google Ads Transparency Center, public Telegram channels, EU VAT/KYB company registries) via Apify Actors with per-call spending caps.
+
+## Install
+
+- npm package: `clearstack-data-mcp` (`npx -y clearstack-data-mcp`)
+- Claude Code: `claude mcp add clearstack-data -e APIFY_TOKEN=your_token -- npx -y clearstack-data-mcp`
+- Official MCP Registry ID: `io.github.Wordhalm/clearstack-data-mcp`
+- Required env var: `APIFY_TOKEN` (from https://console.apify.com/settings/integrations)
+- Runtime: Node.js 20+, stdio transport, read-only tools
+
+## Tools
+
+- `search_ats_jobs`: Search open roles across 25,787 company career sites on Greenhouse, Lever, Ashby, and SmartRecruiters. Parameters: `companies`, `keywords`, `location`, `remoteOnly`, `maxJobs` (1-500). Pricing: $0.002 + $0.0015/job on Apify.
+- `search_google_ads`: Query live and recent ads from Google Ads Transparency Center (Search, Display, YouTube). Parameters: `targets` (1-10 domains/IDs), `region`, `format`, `dateRangeDays`, `maxAdsPerTarget` (1-100). Pricing: $0.002 + $0.0012/ad on Apify.
+- `get_telegram_channel_posts`: Fetch recent posts from public Telegram channels without a Telegram account. Parameters: `channels` (1-10), `maxPostsPerChannel` (1-200), `sinceDate`, `keywords`. Pricing: $0.002 + $0.0015/post on Apify.
+- `verify_eu_company`: Validate EU VAT numbers via VIES and enrich from official company registries (France SIRENE, Switzerland Zefix, Norway Brreg, Finland PRH, GLEIF LEI). Parameters: `queries` (1-200), `defaultCountry`. Pricing: $0.004/company on Apify.
+- `get_run_results`: Collect remaining items when a large search exceeds the 45s wait cap (`finished: false`). Free.
+
+## Links
+
+- npm: https://www.npmjs.com/package/clearstack-data-mcp
+- Official MCP Registry: https://registry.modelcontextprotocol.io/v0.1/servers?search=clearstack-data-mcp
+- Glama: https://glama.ai/mcp/servers/Wordhalm/clearstack-data-mcp
+- GitHub: https://github.com/Wordhalm/clearstack-data-mcp
+- Apify Store Publisher: https://apify.com/clearstack-data
+- ATS Job Board Finder: https://wordhalm.github.io/ats-job-board-finder/
+- n8n & Clay Templates: https://github.com/Wordhalm/clearstack-data-automation-templates
