@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/Wordhalm/clearstack-data-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/Wordhalm/clearstack-data-mcp/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/clearstack-data-mcp.svg)](https://www.npmjs.com/package/clearstack-data-mcp)
+[![Glama MCP server](https://glama.ai/mcp/servers/Wordhalm/clearstack-data-mcp/badge)](https://glama.ai/mcp/servers/Wordhalm/clearstack-data-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Four research tools for Claude, Cursor, VS Code and any other MCP client:
