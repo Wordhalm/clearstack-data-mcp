@@ -30,7 +30,7 @@ claude mcp add clearstack-data -e APIFY_TOKEN=your_token -- npx -y clearstack-da
 
 ### Claude Desktop
 
-Download the `.mcpb` bundle from the [latest GitHub Release](https://github.com/Wordhalm/clearstack-data-mcp/releases/latest) and open it with Claude Desktop, or go to Settings → Developer → Edit Config and add:
+Settings → Developer → Edit Config, then add:
 
 ```json
 {
