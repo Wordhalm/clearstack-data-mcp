@@ -2,7 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { ApifyError, getRunResults, runActor, spendCap, type ClientOptions, type RunResult } from './apify.js';
 
-export const VERSION = '0.2.1';
+export const VERSION = '0.2.2';
 
 type Item = Record<string, unknown>;
 type Shape = (item: Item) => Item;
@@ -178,10 +178,11 @@ export function createServer(opts: ServerOptions = {}): McpServer {
         {
             title: 'Search company career sites',
             description:
-                'List open roles straight from company career sites on Greenhouse, Lever, Ashby and SmartRecruiters ' +
-                '(index of 25,787 employers). Use it for job search ("remote AI engineer roles at Anthropic, OpenAI, Linear") ' +
-                'or hiring signals ("is Datadog hiring data engineers?"). Returns title, location, team, publish date and apply URL. ' +
-                'Cost on the user\'s Apify account: $0.002 per call + $0.0015 per job returned.',
+                'Search live open roles straight from company career sites on Greenhouse, Lever, Ashby and SmartRecruiters (25,787 employers indexed). ' +
+                'Use for direct job search or B2B hiring signals; do not use for LinkedIn/Indeed listings or companies outside those four ATS platforms. ' +
+                'Pass `companies` (names, `ats:slug`, or board URLs; empty scans 35 top tech/AI employers) with optional `keywords`, `location`, and `remoteOnly`. ' +
+                'Waits up to 45s (returns finished=false + runId for get_run_results on large scans). ' +
+                'Billed to the user\'s Apify account: $0.002/call + $0.0015/job, capped by `maxJobs`.',
             inputSchema: {
                 companies: z.array(z.string()).max(200).default([])
                     .describe('Company names ("Stripe"), ats:slug pairs ("greenhouse:stripe", "ashby:openai") or job board URLs. Empty = 35 well-known tech and AI employers.'),
@@ -207,16 +208,18 @@ export function createServer(opts: ServerOptions = {}): McpServer {
         {
             title: 'Search Google Ads Transparency Center',
             description:
-                'List the ads a company runs on Google (Search, Display, YouTube) from the public Google Ads Transparency Center: ' +
-                'advertiser, format, first and last shown dates, ad URL and preview image. Use it for competitor research. ' +
-                'Cost on the user\'s Apify account: $0.002 per call + $0.0012 per ad returned.',
+                'Fetch live and recent Google Ads (Search, Display, YouTube) from the public Google Ads Transparency Center. ' +
+                'Use for competitor ad monitoring; do not use for Meta/LinkedIn/TikTok ads or ad-spend/impression estimates. ' +
+                'Pass 1-10 `targets` (domains, advertiser IDs, or URLs) with optional `region`, `format`, and `dateRangeDays` (0 = all history). ' +
+                'Truncates at `targets.length * maxAdsPerTarget` and waits up to 45s (returns finished=false + runId for get_run_results). ' +
+                'Billed to the user\'s Apify account: $0.002/call + $0.0012/ad, capped by total target-ad limit.',
             inputSchema: {
                 targets: z.array(z.string()).min(1).max(10)
                     .describe('Advertiser domains ("stripe.com"), Google advertiser IDs ("AR1695…") or Transparency Center URLs.'),
                 region: z.string().default('ALL').describe('ISO-2 country code ("US", "GB", "FR") or "ALL".'),
-                format: z.enum(['ALL', 'TEXT', 'IMAGE', 'VIDEO']).default('ALL'),
+                format: z.enum(['ALL', 'TEXT', 'IMAGE', 'VIDEO']).default('ALL').describe('Ad creative format filter: "ALL", "TEXT", "IMAGE", or "VIDEO".'),
                 dateRangeDays: z.number().int().min(0).max(400).default(30).describe('Only ads shown in the last N days; 0 = all history.'),
-                maxAdsPerTarget: z.number().int().min(1).max(100).default(20),
+                maxAdsPerTarget: z.number().int().min(1).max(100).default(20).describe('Maximum ads returned per target (1-100); total billed items cap at targets.length * maxAdsPerTarget.'),
             },
             outputSchema,
             annotations: { ...readOnly, title: 'Search Google Ads Transparency Center' },
@@ -230,8 +233,11 @@ export function createServer(opts: ServerOptions = {}): McpServer {
         {
             title: 'Read public Telegram channels',
             description:
-                'Fetch recent posts from public Telegram channels without a Telegram account: text, date, views, reactions, links, hashtags. ' +
-                'Optional keyword filter and date cutoff. Cost on the user\'s Apify account: $0.002 per call + $0.0015 per post returned.',
+                'Fetch recent posts from public Telegram channels via web preview without any Telegram account or bot token. ' +
+                'Use to monitor public channels (`t.me/s/<name>`); do not use for private channels/groups, direct messages, or global Telegram search. ' +
+                'Pass 1-10 `channels` with optional `sinceDate` (YYYY-MM-DD) and case-insensitive `keywords` OR-filter; paginates newest-first up to `maxPostsPerChannel`. ' +
+                'Waits up to 45s (returns finished=false + runId for get_run_results). ' +
+                'Billed to the user\'s Apify account: $0.002/call + $0.0015/post, capped by `channels.length * maxPostsPerChannel`.',
             inputSchema: {
                 channels: z.array(z.string()).min(1).max(10).describe('Channel usernames or URLs: "durov", "@telegram", "https://t.me/bloomberg".'),
                 maxPostsPerChannel: z.number().int().min(1).max(200).default(30).describe('Newest posts first.'),
@@ -255,9 +261,10 @@ export function createServer(opts: ServerOptions = {}): McpServer {
         {
             title: 'Verify EU company and VAT number',
             description:
-                'Validate EU VAT numbers against the European Commission VIES service and return the official registry record ' +
-                '(France SIRENE, Swiss Zefix, Norway Brreg, Finland PRH, GLEIF LEI): legal name, status, address, legal form, officers. ' +
-                'Cost on the user\'s Apify account: $0.004 per company.',
+                'Validate EU-27 VAT numbers against the European Commission VIES service and enrich official company records (France SIRENE, Switzerland Zefix, Norway Brreg, Finland PRH, GLEIF LEI). ' +
+                'Use for EU B2B KYB, vendor onboarding, or VAT checks; do not use for non-EU companies unless they hold a 20-character LEI. ' +
+                'Batches 1-200 `queries` (set `defaultCountry` for plain company names). `vatValid: null` signals a temporary VIES outage (retry later, not invalid); unmatched entities return `found: false`. ' +
+                'Waits up to 45s (finished=false -> get_run_results). Billed to the user\'s Apify account: $0.004 per company queried.',
             inputSchema: {
                 queries: z.array(z.string()).min(1).max(200)
                     .describe('EU VAT numbers ("FR22424761419"), French SIREN/SIRET, Swiss UID ("CHE-105.909.036"), Norwegian org numbers ("NO:923609016").'),
@@ -275,7 +282,10 @@ export function createServer(opts: ServerOptions = {}): McpServer {
         {
             title: 'Get results of a running search',
             description:
-                'When another tool returned finished=false, wait for that Apify run and return its items. No extra cost: the run is already paid for.',
+                'Poll and collect remaining items from an in-progress Apify run after a sibling search tool returned `finished: false`. ' +
+                'Use only with a `runId` from `search_ats_jobs`, `search_google_ads`, `get_telegram_channel_posts`, or `verify_eu_company`; never use to start a new search. ' +
+                'Optionally override `maxItems` (1-2000; defaults to the original call\'s cap). Polls automatically for up to 45s at no extra Apify cost; ' +
+                'if still RUNNING, call again with the same `runId`. Failed, timed-out, or aborted runs return any partial items collected plus the Apify Console log URL.',
             inputSchema: {
                 runId: z.string().min(5).describe('runId returned by a previous tool call.'),
                 maxItems: z.number().int().min(1).max(2000).optional().describe('Defaults to the cap of the original call.'),

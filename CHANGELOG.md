@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2 (2026-11-24)
+
+- Documented every input parameter across all 5 tools (100% schema coverage, adding descriptions to `format` and `maxAdsPerTarget` in `search_google_ads`).
+- Added explicit when-to-use / exclusions, cost-scaling, timeout, and error-handling guidance to every tool description.
+- Added GitHub Dependabot (`.github/dependabot.yml`) and CodeQL code scanning (`.github/workflows/codeql.yml`).
+
 ## 0.2.1 (2026-11-23)
 
 - Added logo to README, Official MCP Registry `server.json` (`icons` and `websiteUrl`), and Cursor plugin manifest (`.cursor-plugin/plugin.json`, `.mcp.json`, and `rules/clearstack-b2b-signals.mdc`).
