@@ -1,6 +1,7 @@
 # ClearStack Data MCP server
 
 [![CI](https://github.com/Wordhalm/clearstack-data-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/Wordhalm/clearstack-data-mcp/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/clearstack-data-mcp.svg)](https://www.npmjs.com/package/clearstack-data-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Four research tools for Claude, Cursor, VS Code and any other MCP client:
@@ -23,19 +24,19 @@ You need Node.js 20 or later and an Apify API token from [console.apify.com/sett
 ### Claude Code
 
 ```
-claude mcp add clearstack-data -e APIFY_TOKEN=your_token -- npx -y github:Wordhalm/clearstack-data-mcp
+claude mcp add clearstack-data -e APIFY_TOKEN=your_token -- npx -y clearstack-data-mcp
 ```
 
 ### Claude Desktop
 
-Settings → Developer → Edit Config, then add:
+Download the `.mcpb` bundle from the [latest GitHub Release](https://github.com/Wordhalm/clearstack-data-mcp/releases/latest) and open it with Claude Desktop, or go to Settings → Developer → Edit Config and add:
 
 ```json
 {
   "mcpServers": {
     "clearstack-data": {
       "command": "npx",
-      "args": ["-y", "github:Wordhalm/clearstack-data-mcp"],
+      "args": ["-y", "clearstack-data-mcp"],
       "env": { "APIFY_TOKEN": "your_token" }
     }
   }
@@ -59,14 +60,12 @@ Same block as Claude Desktop, in `.cursor/mcp.json` (Cursor) or `~/.codeium/wind
     "clearstack-data": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "github:Wordhalm/clearstack-data-mcp"],
+      "args": ["-y", "clearstack-data-mcp"],
       "env": { "APIFY_TOKEN": "${input:apify-token}" }
     }
   }
 }
 ```
-
-The first start takes up to a minute while npx downloads and builds the server (41 s measured on a cold cache).
 
 ## Tools
 

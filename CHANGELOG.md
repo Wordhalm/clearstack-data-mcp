@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 (unreleased)
+## 0.2.0 (2026-11-23)
 
 - Runs start asynchronously and wait at most 45 s per call (MCP clients usually time out at 60 s). Longer runs return partial results with `finished: false`; the new `get_run_results` tool collects the rest, with the same item cap as the original call.
 - Every tool declares an `outputSchema` and returns `structuredContent`.
