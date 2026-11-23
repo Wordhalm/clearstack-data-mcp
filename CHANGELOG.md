@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1 (2026-11-23)
+
+- Added logo to README, Official MCP Registry `server.json` (`icons` and `websiteUrl`), and Cursor plugin manifest (`.cursor-plugin/plugin.json`, `.mcp.json`, and `rules/clearstack-b2b-signals.mdc`).
+- Updated npm README with 1-click Cursor and VS Code install buttons, example prompts, `SECURITY.md`, `CONTRIBUTING.md`, and `llms.txt`.
+
 ## 0.2.0 (2026-11-23)
 
 - Runs start asynchronously and wait at most 45 s per call (MCP clients usually time out at 60 s). Longer runs return partial results with `finished: false`; the new `get_run_results` tool collects the rest, with the same item cap as the original call.

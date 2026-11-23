@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "clearstack-data": {
+      "command": "npx",
+      "args": ["-y", "clearstack-data-mcp"],
+      "env": {
+        "APIFY_TOKEN": "${APIFY_TOKEN}"
+      }
+    }
+  }
+}

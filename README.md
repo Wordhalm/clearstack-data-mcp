@@ -1,3 +1,7 @@
+<p>
+  <img src="https://raw.githubusercontent.com/Wordhalm/clearstack-data-mcp/main/assets/icon.png" alt="ClearStack Data logo" width="64" height="64" />
+</p>
+
 # ClearStack Data MCP Server
 
 [![CI](https://github.com/Wordhalm/clearstack-data-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/Wordhalm/clearstack-data-mcp/actions/workflows/ci.yml)

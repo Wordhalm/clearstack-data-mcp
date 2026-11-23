@@ -2,7 +2,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { ApifyError, getRunResults, runActor, spendCap, type ClientOptions, type RunResult } from './apify.js';
 
-export const VERSION = '0.2.0';
+export const VERSION = '0.2.1';
 
 type Item = Record<string, unknown>;
 type Shape = (item: Item) => Item;

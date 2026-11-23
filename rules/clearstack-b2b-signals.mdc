@@ -1,0 +1,15 @@
+---
+description: Guidelines for running live B2B research signals with the ClearStack Data MCP tools (ATS jobs, Google Ads Transparency, public Telegram channels, EU VAT/KYB registries).
+globs:
+alwaysApply: false
+---
+
+# ClearStack Data B2B Signals
+
+Use the `clearstack-data` MCP server when the user asks for live public B2B signals:
+
+- **Hiring signals & direct career-site jobs** -> call `search_ats_jobs` (25,787 employers on Greenhouse, Lever, Ashby, SmartRecruiters). Pass concrete `companies` names or `ats:slug` pairs and keep `maxJobs` bounded to avoid unnecessary spend.
+- **Competitor Google Ads** -> call `search_google_ads` with domains (`stripe.com`), ISO-2 `region`, `format`, and `dateRangeDays`.
+- **Public Telegram channels** -> call `get_telegram_channel_posts` with channel usernames (`durov`, `telegram`), `sinceDate`, and optional `keywords`.
+- **EU company & VAT verification (KYB)** -> call `verify_eu_company` with EU VAT numbers, French SIREN/SIRET, Swiss UID, Norwegian org numbers, or company names with `defaultCountry`. Treat `vatValid: null` as a temporary VIES outage (retry later), not invalid.
+- **Long runs (`finished: false`)** -> call `get_run_results` with the returned `runId` instead of starting a new run.

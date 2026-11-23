@@ -1,6 +1,6 @@
 {
   "name": "clearstack-data-mcp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "mcpName": "io.github.Wordhalm/clearstack-data-mcp",
   "description": "Job openings, Google Ads, Telegram posts and EU VAT checks for AI assistants, via Apify.",
   "keywords": [

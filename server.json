@@ -3,16 +3,24 @@
   "name": "io.github.Wordhalm/clearstack-data-mcp",
   "title": "ClearStack Data: B2B Signals",
   "description": "Job openings, Google Ads, Telegram posts and EU VAT checks for AI assistants, via Apify.",
+  "websiteUrl": "https://github.com/Wordhalm/clearstack-data-mcp",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/Wordhalm/clearstack-data-mcp/main/assets/icon.png",
+      "mimeType": "image/png",
+      "sizes": ["512x512"]
+    }
+  ],
   "repository": {
     "url": "https://github.com/Wordhalm/clearstack-data-mcp",
     "source": "github"
   },
-  "version": "0.2.0",
+  "version": "0.2.1",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "clearstack-data-mcp",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "transport": {
         "type": "stdio"
       },

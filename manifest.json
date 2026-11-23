@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "clearstack-data-mcp",
   "display_name": "ClearStack Data: B2B Signals",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Job openings, Google Ads, Telegram posts and EU VAT checks for AI assistants, via Apify.",
   "long_description": "Ask Claude which companies are hiring for a role, what ads a competitor runs on Google, what a public Telegram channel posted this week, or whether an EU VAT number is valid. Each tool runs a ClearStack Data Actor on Apify with your own Apify API token, and every call carries a spending cap. Typical cost: a few cents per question.",
   "author": {

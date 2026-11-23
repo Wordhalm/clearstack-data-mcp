@@ -1,0 +1,27 @@
+{
+  "name": "clearstack-data-mcp",
+  "displayName": "ClearStack Data: B2B Signals",
+  "version": "0.2.1",
+  "description": "Live B2B research MCP server (via Apify): career-site jobs across 25,787 employers, Google Ads Transparency Center, public Telegram channels, and EU VAT/KYB company registries.",
+  "author": {
+    "name": "ClearStack Data",
+    "url": "https://apify.com/clearstack-data"
+  },
+  "homepage": "https://www.npmjs.com/package/clearstack-data-mcp",
+  "repository": "https://github.com/Wordhalm/clearstack-data-mcp",
+  "license": "MIT",
+  "logo": "./assets/icon.png",
+  "keywords": [
+    "mcp",
+    "apify",
+    "b2b",
+    "hiring-signals",
+    "ats",
+    "google-ads",
+    "telegram",
+    "kyb",
+    "vat"
+  ],
+  "rules": "./rules/",
+  "mcpServers": "./.mcp.json"
+}
