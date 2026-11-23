@@ -26,5 +26,5 @@ writeFileSync(
 );
 
 run('npm install --omit=dev --ignore-scripts --no-audit --no-fund', stage);
-run(`npx mcpb pack "${stage}" "${out}"`);
+run(`npx -y @anthropic-ai/mcpb pack "${stage}" "${out}"`);
 console.log(`\nBuilt ${out}`);

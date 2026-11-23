@@ -91,7 +91,7 @@ export const outputSchema = {
     status: z.string().describe('Apify run status, e.g. SUCCEEDED or RUNNING'),
     finished: z.boolean().describe('false when the run was still going and items are partial'),
     itemCount: z.number().int(),
-    items: z.array(z.record(z.unknown())),
+    items: z.array(z.record(z.string(), z.unknown())),
 };
 
 type Structured = { actor: string; runId: string; status: string; finished: boolean; itemCount: number; items: Item[] };

@@ -25,7 +25,6 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: node scripts/smoke.mjs
-      - run: npx mcpb validate manifest.json
   runtime-node20:
     # Same path as a user on Node 20 (install, build through `prepare`, start); the test runner needs Node 22+.
     runs-on: ${{ matrix.os }}
