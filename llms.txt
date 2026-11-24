@@ -5,7 +5,8 @@
 ## Install
 
 - npm package: `clearstack-data-mcp` (`npx -y clearstack-data-mcp`)
-- Claude Code: `claude mcp add clearstack-data -e APIFY_TOKEN=your_token -- npx -y clearstack-data-mcp`
+- Claude Code (token): `claude mcp add clearstack-data -e APIFY_TOKEN=your_token -- npx -y clearstack-data-mcp`
+- Claude Code (zero-token Apify OAuth): `claude mcp add --transport http clearstack-apify "https://mcp.apify.com/?tools=clearstack-data/career-site-jobs-search,clearstack-data/google-ads-transparency-scraper,clearstack-data/telegram-public-channel-monitor,clearstack-data/eu-company-kyb-enricher"`
 - Official MCP Registry ID: `io.github.Wordhalm/clearstack-data-mcp`
 - Required env var: `APIFY_TOKEN` (from https://console.apify.com/settings/integrations)
 - Runtime: Node.js 20+, stdio transport, read-only tools

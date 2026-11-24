@@ -45,15 +45,42 @@ Paste any of these into Claude, Cursor, or VS Code after installing:
 
 ## Install
 
-Requirements: **Node.js 20+** and an Apify API token from [console.apify.com/settings/integrations](https://console.apify.com/settings/integrations).
+You have two ways to connect:
 
-### Claude Code
+1. **Dedicated package (`npx -y clearstack-data-mcp`)** — trimmed token-efficient outputs, automatic `maxTotalChargeUsd` spending caps, and 45 s timeout handling (requires Node.js 20+ and an `APIFY_TOKEN` from [console.apify.com/settings/integrations](https://console.apify.com/settings/integrations)).
+2. **Zero-token OAuth via Apify** — no API token to copy or store locally; signs in through your browser via Apify OAuth (exposes the full Actor schemas directly).
+
+### Option A: Zero-token OAuth (no `APIFY_TOKEN` to copy)
+
+**Claude Code:**
+
+```bash
+claude mcp add --transport http clearstack-apify "https://mcp.apify.com/?tools=clearstack-data/career-site-jobs-search,clearstack-data/google-ads-transparency-scraper,clearstack-data/telegram-public-channel-monitor,clearstack-data/eu-company-kyb-enricher"
+```
+
+**Cursor / Claude Desktop (`mcp.json`):**
+
+```json
+{
+  "mcpServers": {
+    "clearstack-apify": {
+      "url": "https://mcp.apify.com/?tools=clearstack-data/career-site-jobs-search,clearstack-data/google-ads-transparency-scraper,clearstack-data/telegram-public-channel-monitor,clearstack-data/eu-company-kyb-enricher"
+    }
+  }
+}
+```
+
+On first use, your client opens a browser window to sign into Apify via OAuth (free tier included).
+
+### Option B: Dedicated MCP package (`npx -y clearstack-data-mcp`, recommended for lower token usage)
+
+#### Claude Code
 
 ```bash
 claude mcp add clearstack-data -e APIFY_TOKEN=your_token -- npx -y clearstack-data-mcp
 ```
 
-### Cursor
+#### Cursor
 
 Click the **Install in Cursor** button at the top (then replace `YOUR_APIFY_TOKEN` with your token), or add this to `.cursor/mcp.json`:
 
@@ -69,11 +96,11 @@ Click the **Install in Cursor** button at the top (then replace `YOUR_APIFY_TOKE
 }
 ```
 
-### Claude Desktop and Windsurf
+#### Claude Desktop and Windsurf
 
 In Claude Desktop (`Settings -> Developer -> Edit Config`) or Windsurf (`~/.codeium/windsurf/mcp_config.json`), add the same `mcpServers` block as Cursor above.
 
-### VS Code
+#### VS Code
 
 Click the **Install in VS Code** button at the top, or add `.vscode/mcp.json` (VS Code prompts once for the token and stores it securely):
 
