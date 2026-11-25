@@ -14,6 +14,6 @@ await client.connect(transport);
 const { tools } = await client.listTools();
 const res = await client.callTool({ name: 'verify_eu_company', arguments: { queries: ['FR22424761419'] } });
 await client.close();
-const ok = tools.length === 5 && res.isError && res.content[0].text.includes('APIFY_TOKEN is not set');
+const ok = tools.length === 6 && res.isError && res.content[0].text.includes('APIFY_TOKEN is not set');
 console.log(`node ${process.version}: ${tools.length} tools, missing-token error ${res.isError ? 'ok' : 'missing'}`);
 process.exit(ok ? 0 : 1);

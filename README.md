@@ -10,7 +10,7 @@
 [![Glama MCP server](https://glama.ai/mcp/servers/Wordhalm/clearstack-data-mcp/badges/score.svg)](https://glama.ai/mcp/servers/Wordhalm/clearstack-data-mcp)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Live B2B research tools for **Claude Code**, **Claude Desktop**, **Cursor**, **Windsurf**, and **VS Code**: career-site job openings across 25,787 employers, Google Ads Transparency Center, public Telegram channels, and EU VAT/company registry verification.
+Live B2B & OSINT research tools for **Claude Code**, **Claude Desktop**, **Cursor**, **Windsurf**, and **VS Code**: career-site job openings (with salaries & tech stack), Google Ads Transparency Center (with EU DSA impressions), public Telegram channels (with OSINT/crypto extraction), EU VAT/company registry verification + OFAC/EU/UN sanctions screening, and EU/France/UK public tenders & contract awards.
 
 [<img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Install in Cursor" height="32">](https://cursor.com/en/install-mcp?name=clearstack-data&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImNsZWFyc3RhY2stZGF0YS1tY3AiXSwiZW52Ijp7IkFQSUZZX1RPS0VOIjoiWU9VUl9BUElGWV9UT0tFTiJ9fQ%3D%3D)
 [<img src="https://img.shields.io/badge/VS_Code-Install_MCP-0098FF?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="Install in VS Code" height="32">](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%257B%2522name%2522%253A%2522clearstack-data%2522%252C%2522command%2522%253A%2522npx%2522%252C%2522args%2522%253A%255B%2522-y%2522%252C%2522clearstack-data-mcp%2522%255D%252C%2522env%2522%253A%257B%2522APIFY_TOKEN%2522%253A%2522%2524%257Binput%253Aapify-token%257D%2522%257D%252C%2522inputs%2522%253A%255B%257B%2522type%2522%253A%2522promptString%2522%252C%2522id%2522%253A%2522apify-token%2522%252C%2522description%2522%253A%2522Apify%2520API%2520token%2522%252C%2522password%2522%253Atrue%257D%255D%257D)
@@ -23,11 +23,12 @@ claude mcp add clearstack-data -e APIFY_TOKEN=your_token -- npx -y clearstack-da
 
 | Tool | Data source | Typical question | Cost on Apify |
 | --- | --- | --- | --- |
-| `search_ats_jobs` | Greenhouse, Lever, Ashby, SmartRecruiters (25,787 employers) | "Which of Datadog, Snowflake and Databricks are hiring data engineers in Europe?" | $0.002 + $0.0015 / job |
-| `search_google_ads` | Google Ads Transparency Center (Search, Display, YouTube) | "What Google Ads has notion.so run in the UK over the last 30 days?" | $0.002 + $0.0012 / ad |
-| `get_telegram_channel_posts` | Public Telegram channels (no Telegram account required) | "Summarise this week's posts from t.me/durov." | $0.002 + $0.0015 / post |
-| `verify_eu_company` | EU VIES VAT + SIRENE (FR), Zefix (CH), Brreg (NO), PRH (FI), GLEIF LEI | "Is FR22424761419 a valid VAT number, and which company is it?" | $0.004 / company |
-| `get_run_results` | Any in-progress Apify run from the four tools above | Automatically called when a large query exceeds 45 seconds | Free (already paid) |
+| `search_ats_jobs` | Greenhouse, Lever, Ashby, SmartRecruiters (25,787 employers) | "Find Senior/Staff Python + Kubernetes roles paying $180k+ at OpenAI, Stripe, or Monzo." | $0.002 + $0.0015 / job |
+| `search_google_ads` | Google Ads Transparency Center (Search, Display, YouTube, EU DSA) | "Which Google Ads has shopify.com run in France for 30+ days, with EU impression ranges?" | $0.002 + $0.0012 / ad |
+| `get_telegram_channel_posts` | Public Telegram channels (OSINT/finance entities, no account needed) | "Fetch posts from t.me/durov with 100k+ views, tickers, external domains, and engagement." | $0.002 + $0.0015 / post |
+| `verify_eu_company` | EU VIES VAT + SIRENE (FR), Zefix (CH), Brreg (NO), PRH (FI), GLEIF LEI + **OFAC/EU/UN Sanctions** | "Validate FR22424761419, enrich officers, and screen against OFAC, EU FSF, and UN sanctions." | $0.004 / company |
+| `search_eu_tenders` | EU TED (27 EU + EEA), France BOAMP, UK Find a Tender (OCDS) | "List open cloud/cybersecurity tenders >= €100k or recent contract award winners in FR/DE/UK." | $0.002 / tender |
+| `get_run_results` | Any in-progress Apify run from the five tools above | Automatically called when a large query exceeds 45 seconds | Free (already paid) |
 
 Each tool calls a [ClearStack Data](https://apify.com/clearstack-data) Actor on [Apify](https://apify.com) using **your own `APIFY_TOKEN`**.
 - **Free to try**: Apify's free tier includes monthly platform credits (no credit card required), which is enough for hundreds to thousands of calls.
@@ -38,10 +39,11 @@ Each tool calls a [ClearStack Data](https://apify.com/clearstack-data) Actor on 
 
 Paste any of these into Claude, Cursor, or VS Code after installing:
 
-- **Account hiring signals (B2B sales / GTM)**: *"Check if Stripe, Datadog, and Linear are hiring for RevOps or Data Engineering roles in Europe, and give me the direct apply URLs."*
-- **Competitor ad teardown**: *"Pull the last 30 days of Google Ads for notion.so and monday.com in the US, grouped by format (TEXT, IMAGE, VIDEO), and highlight which campaigns ran longest."*
-- **EU vendor KYB / onboarding check**: *"Verify VAT numbers FR22424761419 and CHE-105.909.036, check whether each company is active, and list their legal name, registration number, and registered address."*
-- **Telegram market watch**: *"Fetch the last 20 posts from t.me/durov and t.me/telegram mentioning AI or Stars, sorted by views."*
+- **Targeted job search / hiring signals**: *"Find Senior or Staff engineering roles requiring Python and Kubernetes paying at least $180k USD equivalent at OpenAI, Datadog, Cloudflare, or Monzo, with direct apply URLs."*
+- **Competitor ad teardown + EU DSA**: *"Pull Google Ads for shopify.com in France that have been running for at least 30 days, include EU DSA details, and rank them by EU impressions."*
+- **EU vendor KYB + sanctions check**: *"Verify FR22424761419 and CHE-105.909.036, check VAT validity, list officers, and confirm OFAC/EU/UN sanctions status and any kybRiskFlags."*
+- **Public procurement & award intelligence**: *"Find European public contract awards over €250,000 in the last 14 days from EU TED and UK Find a Tender, showing buyers, winning suppliers, and awarded amounts."*
+- **Telegram OSINT & market watch**: *"Fetch original posts (no forwards) from t.me/durov and t.me/bloomberg with at least 50k views, showing external domains, tickers, and engagement rate."*
 
 ## Install
 
@@ -55,7 +57,7 @@ You have two ways to connect:
 **Claude Code:**
 
 ```bash
-claude mcp add --transport http clearstack-apify "https://mcp.apify.com/?tools=clearstack-data/career-site-jobs-search,clearstack-data/google-ads-transparency-scraper,clearstack-data/telegram-public-channel-monitor,clearstack-data/eu-company-kyb-enricher"
+claude mcp add --transport http clearstack-apify "https://mcp.apify.com/?tools=clearstack-data/career-site-jobs-search,clearstack-data/google-ads-transparency-scraper,clearstack-data/telegram-public-channel-monitor,clearstack-data/eu-company-kyb-enricher,clearstack-data/eu-public-tenders-monitor"
 ```
 
 **Cursor / Claude Desktop (`mcp.json`):**
@@ -64,7 +66,7 @@ claude mcp add --transport http clearstack-apify "https://mcp.apify.com/?tools=c
 {
   "mcpServers": {
     "clearstack-apify": {
-      "url": "https://mcp.apify.com/?tools=clearstack-data/career-site-jobs-search,clearstack-data/google-ads-transparency-scraper,clearstack-data/telegram-public-channel-monitor,clearstack-data/eu-company-kyb-enricher"
+      "url": "https://mcp.apify.com/?tools=clearstack-data/career-site-jobs-search,clearstack-data/google-ads-transparency-scraper,clearstack-data/telegram-public-channel-monitor,clearstack-data/eu-company-kyb-enricher,clearstack-data/eu-public-tenders-monitor"
     }
   }
 }
@@ -124,19 +126,18 @@ Click the **Install in VS Code** button at the top, or add `.vscode/mcp.json` (V
 
 ### `search_ats_jobs`
 
-Reads live openings directly from company career sites on Greenhouse, Lever, Ashby, and SmartRecruiters (25,787 employers indexed; browse or look up ATS slugs with [ATS Job Board Finder](https://wordhalm.github.io/ats-job-board-finder/)).
+Reads live openings directly from company career sites on Greenhouse, Lever, Ashby, and SmartRecruiters (25,787 employers indexed; browse ATS slugs with [ATS Job Board Finder](https://wordhalm.github.io/ats-job-board-finder/)).
 
 | Parameter | Default | Description |
 | --- | --- | --- |
 | `companies` | `[]` | Names (`"Stripe"`), `ats:slug` pairs (`"ashby:openai"`), or job board URLs. Empty scans 35 well-known tech and AI employers. |
-| `keywords` | `[]` | Match any of them in title or department. |
+| `keywords` | `[]` | Match any of them in title, department, or tech stack. |
+| `requiredSkills` | `[]` | Require ALL listed skills (aliases like `"k8s"`, `"golang"`, `"postgres"` map automatically). |
+| `seniorityLevels` | `[]` | Filter by seniority (`intern`, `entry`, `mid`, `senior`, `staff`, `lead`, `manager`, `director`, `executive`). |
+| `minSalaryUsd` | — | Minimum annual salary in approximate USD equivalent (converts USD, EUR, GBP, CHF, CAD, AUD). |
 | `location` | `""` | Substring of the location: `"London"`, `"Remote"`, `"Germany"`. |
 | `remoteOnly` | `false` | Return only roles marked remote. |
 | `maxJobs` | `50` | 1–500. |
-
-```json
-{"company":"Airbnb","ats":"greenhouse","title":"Account Executive (Hotels)","location":"Barcelona, Spain","isRemote":false,"publishedAt":"2026-11-10","applyUrl":"https://careers.airbnb.com/positions/8365363?gh_jid=8365363"}
-```
 
 ### `search_google_ads`
 
@@ -148,11 +149,9 @@ Reads live and recent ads from the public [Google Ads Transparency Center](https
 | `region` | `"ALL"` | ISO-2 country code (`"US"`, `"GB"`, `"FR"`). |
 | `format` | `"ALL"` | `TEXT`, `IMAGE`, or `VIDEO`. |
 | `dateRangeDays` | `30` | `0` = all history. |
+| `minActiveDays` | — | Minimum active duration in days (e.g. `30` for evergreen winning ads). |
+| `includeDetails` | `false` | Fetch per-ad EU DSA impression ranges (`euImpressionsMin`/`Max`), `countriesShown`, and flattened targeting flags. |
 | `maxAdsPerTarget` | `20` | 1–100. |
-
-```json
-{"target":"stripe.com","advertiserName":"Stripe, Inc.","advertiserId":"AR16951989901585285121","creativeId":"CR13805501473330561025","format":"TEXT","firstShownDate":"2026-07-31","lastShownDate":"2026-11-22","variationsCount":114,"adUrl":"https://adstransparency.google.com/advertiser/AR16951989901585285121/creative/CR13805501473330561025"}
-```
 
 ### `get_telegram_channel_posts`
 
@@ -163,28 +162,39 @@ Reads posts from public Telegram channels via Telegram's public web preview. No 
 | `channels` | required | 1–10 usernames or URLs: `"durov"`, `"@telegram"`, `"https://t.me/bloomberg"`. |
 | `maxPostsPerChannel` | `30` | 1–200, newest first. |
 | `sinceDate` | `""` | `YYYY-MM-DD`; older posts are skipped. |
-| `keywords` | `[]` | Return only posts containing any of these keywords. |
+| `keywords` | `[]` | Return only posts containing any of these words, hashtags, or cashtags. |
+| `minViews` | — | Optional minimum view count filter. |
+| `excludeForwarded` | `false` | Skip reposted/forwarded posts and keep original posts only. |
 
-```json
-{"channel":"durov","channelTitle":"Pavel Durov","channelSubscribersNum":9910000,"messageId":568,"postUrl":"https://t.me/durov/568","publishedAt":"2026-11-21T22:48:52+00:00","text":"You won't look professional in 2027 if your QR is unpimped.","viewsNum":242000,"hasPhoto":false,"hasVideo":true,"hasDocument":false,"reactionsTotal":8870,"paidStars":1120}
-```
-
-`paidStars` reports Telegram Stars paid as reactions separately from `reactionsTotal`.
+Returns OSINT/finance fields (`externalDomains`, `mentions`, `tickers`, `cryptoAddresses`, `engagementRatePct`, `reactionsTotal`, `paidStars`) automatically.
 
 ### `verify_eu_company`
 
-Validates EU VAT numbers against the European Commission's VIES service and enriches from official company registries: France (SIRENE), Switzerland (Zefix), Norway (Brreg), Finland (PRH), and GLEIF LEI.
+Validates EU VAT numbers against the European Commission's VIES service, enriches official company registries (France SIRENE, Switzerland Zefix, Norway Brreg, Finland PRH, GLEIF LEI), and screens companies + officers live against **US OFAC SDN/ALT, EU Financial Sanctions (FSF), and UN Security Council** lists.
 
 | Parameter | Default | Description |
 | --- | --- | --- |
-| `queries` | required | 1–200 VAT numbers, French SIREN/SIRET, Swiss UID (`CHE-105.909.036`), or Norwegian org numbers (`NO:923609016`). |
+| `queries` | required | 1–200 VAT numbers, French SIREN/SIRET, Swiss UID (`CHE-105.909.036`), Norwegian org numbers (`NO:923609016`), LEI codes, or company names. |
 | `defaultCountry` | `""` | ISO-2 country code for plain company names. |
-
-```json
-{"query":"FR22424761419","found":true,"kybStatus":"VERIFIED_ACTIVE","country":"FR","legalName":"OVH (OVHCLOUD)","registrationNumber":"424761419","vatNumber":"FR22424761419","vatValid":true,"leiCode":"9695007586GCAKPYJ703","status":"ACTIVE","incorporationDate":"1999-10-15","address":{"full":"2 RUE KELLERMANN 59100 ROUBAIX"}}
-```
+| `screenSanctions` | `true` | Screen resolved companies and extracted officers live against OFAC, EU FSF, and UN SC sanctions lists. |
 
 `vatValid` is `null` when a member state's VIES endpoint is temporarily unavailable (meaning "retry later", not "invalid").
+
+### `search_eu_tenders`
+
+Searches European public procurement notices and contract awards across **EU TED**, **France BOAMP**, and **UK Find a Tender (OCDS)**.
+
+| Parameter | Default | Description |
+| --- | --- | --- |
+| `sources` | `["EU_TED","FR_BOAMP","UK_FTS"]` | Official procurement portals to query. |
+| `keywords` | `[]` | Optional OR-logic keywords (`["cloud", "cybersecurity"]`). |
+| `countries` | `[]` | Optional ISO-2 country codes (`["FR", "DE", "GB"]`). |
+| `cpvCodes` | `[]` | Optional 8-digit CPV codes (`["72000000"]`). |
+| `noticeCategory` | `"ALL"` | `"ALL"`, `"OPEN_TENDER"`, `"CONTRACT_AWARD"` (with `winners` & `awardedValue`), or `"PLANNING"`. |
+| `minValueEur` | — | Minimum contract value in approximate EUR equivalent. |
+| `publishedSinceDays` | `14` | 1–365 days lookback. |
+| `onlyOpenTenders` | `false` | Exclude tenders past their submission deadline. |
+| `maxResultsPerSource` | `15` | 1–100 per enabled portal. |
 
 ### `get_run_results`
 
@@ -204,7 +214,7 @@ Empty and null fields are stripped from items to keep token usage low.
 
 - `APIFY_TOKEN` is read from the local environment and sent only to `api.apify.com` via the `Authorization` header, never in a URL.
 - Zero telemetry, zero files written to disk. Only one startup line is logged to `stderr`.
-- All data comes from public sources (company career sites, Google Ads Transparency Center, Telegram public web preview, VIES, official business registries).
+- All data comes from public sources (company career sites, Google Ads Transparency Center, Telegram public web preview, VIES, official business registries, government sanctions lists, and official EU/FR/UK procurement APIs).
 - See [SECURITY.md](SECURITY.md) for reporting vulnerabilities.
 
 ## Troubleshooting
@@ -216,10 +226,6 @@ Empty and null fields are stripped from items to keep token usage low.
 | `usage or spending limit` | Raise the spending limit or upgrade at [console.apify.com/billing](https://console.apify.com/billing). |
 | `may not be public yet` | The Actor is not available to your account; open an issue. |
 | `finished: false` | Normal for large searches: ask the model to call `get_run_results`. |
-
-## Compared with Apify's official MCP server
-
-[Apify's MCP server](https://github.com/apify/apify-mcp-server) can load these Actors directly (`https://mcp.apify.com?tools=clearstack-data/career-site-jobs-search`) with their full input schemas. This package wraps them with focused parameters, trimmed token-efficient outputs, automatic `maxTotalChargeUsd` spending caps, and 45-second timeout pagination.
 
 ## Related tools
 

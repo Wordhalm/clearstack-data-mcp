@@ -41,11 +41,11 @@ type Result = { content: Array<{ text: string }>; structuredContent?: { items: R
 const text = (r: unknown) => (r as Result).content[0]?.text ?? '';
 
 describe('tool list', () => {
-    it('exposes five read-only tools with output schemas', async () => {
+    it('exposes six read-only tools with output schemas', async () => {
         const client = await connect({ token: 't' });
         const { tools } = await client.listTools();
         expect(tools.map((t) => t.name).sort()).toEqual(
-            ['get_run_results', 'get_telegram_channel_posts', 'search_ats_jobs', 'search_google_ads', 'verify_eu_company'],
+            ['get_run_results', 'get_telegram_channel_posts', 'search_ats_jobs', 'search_eu_tenders', 'search_google_ads', 'verify_eu_company'],
         );
         for (const t of tools) {
             expect(t.annotations?.readOnlyHint).toBe(true);
@@ -53,6 +53,7 @@ describe('tool list', () => {
             expect(t.description!.length).toBeGreaterThan(80);
         }
         expect(client.getInstructions()).toContain('get_run_results');
+        expect(client.getInstructions()).toContain('search_eu_tenders');
     });
 });
 
@@ -123,13 +124,72 @@ describe('runs on real Actor output', () => {
         expect(calls[0]!.body).toMatchObject({ channels: ['durov'], maxMessagesPerChannel: 30 });
     });
 
-    it('verify_eu_company returns registry fields', async () => {
-        const { calls, fetchImpl } = fakeApify(fixture('kyb'));
+    it('verify_eu_company returns registry, sanctions & risk flags fields', async () => {
+        const enrichedKyb = fixture('kyb').map((item, i) =>
+            i === 0 ? { ...item, kybRiskFlags: [], sanctions: { status: 'CLEAR', totalMatches: 0, matches: [] } } : item,
+        );
+        const { calls, fetchImpl } = fakeApify(enrichedKyb);
         const client = await connect({ token: 't', fetchImpl });
         const res = (await client.callTool({ name: 'verify_eu_company', arguments: { queries: ['FR22424761419', 'CHE-105.909.036', 'NO:923609016'] } })) as Result;
         expect(res.structuredContent!.itemCount).toBe(3);
         expect(res.structuredContent!.items[0]).toHaveProperty('legalName');
+        expect(res.structuredContent!.items[0]).toHaveProperty('sanctions');
         expect(calls[0]!.url).toContain('maxTotalChargeUsd=0.015');
+        expect(calls[0]!.body).toMatchObject({ screenSanctions: true });
+    });
+
+    it('search_eu_tenders forwards filters, applies spend cap, and keeps award fields', async () => {
+        const { calls, fetchImpl } = fakeApify(fixture('tenders'));
+        const client = await connect({ token: 't', fetchImpl });
+        const res = (await client.callTool({
+            name: 'search_eu_tenders',
+            arguments: { sources: ['EU_TED', 'UK_FTS'], noticeCategory: 'CONTRACT_AWARD', minValueEur: 100000, maxResultsPerSource: 5 },
+        })) as Result;
+        expect(res.isError).toBeFalsy();
+        expect(calls[0]!.url).toContain('clearstack-data~eu-public-tenders-monitor/runs?');
+        expect(calls[0]!.url).toContain('maxItems=10');
+        expect(calls[0]!.body).toMatchObject({
+            sources: ['EU_TED', 'UK_FTS'],
+            noticeCategory: 'CONTRACT_AWARD',
+            minValueEur: 100000,
+            maxResultsPerSource: 5,
+        });
+        expect(res.structuredContent!.itemCount).toBe(2);
+        expect(res.structuredContent!.items[0]).toMatchObject({
+            source: 'EU_TED',
+            noticeCategory: 'CONTRACT_AWARD',
+            awardedValue: 284062.5,
+            winners: ['Rubin GmbH'],
+        });
+    });
+
+    it('forwards v1.1 filters on search_ats_jobs, search_google_ads, and get_telegram_channel_posts', async () => {
+        const jobCall = fakeApify([{ company: 'OpenAI', ats: 'ashby', title: 'Staff Engineer', workplaceType: 'hybrid', seniority: 'staff', salaryAnnualUsdMin: 250000, techStack: ['Python', 'Kubernetes'], applyUrl: 'https://jobs.ashbyhq.com/openai/1' }]);
+        const c1 = await connect({ token: 't', fetchImpl: jobCall.fetchImpl });
+        const r1 = (await c1.callTool({
+            name: 'search_ats_jobs',
+            arguments: { companies: ['OpenAI'], requiredSkills: ['k8s'], seniorityLevels: ['staff'], minSalaryUsd: 200000, maxJobs: 5 },
+        })) as Result;
+        expect(jobCall.calls[0]!.body).toMatchObject({ requiredSkills: ['k8s'], seniorityLevels: ['staff'], minSalaryUsd: 200000 });
+        expect(r1.structuredContent!.items[0]).toMatchObject({ seniority: 'staff', salaryAnnualUsdMin: 250000, techStack: ['Python', 'Kubernetes'] });
+
+        const adCall = fakeApify([{ target: 'shopify.com', advertiserName: 'Shopify', creativeId: 'CR1', format: 'TEXT', activeDays: 120, euImpressionsMin: 60000, euImpressionsMax: 70000, countriesShown: ['DE', 'FR'], euTargetingIncluded: ['location'] }]);
+        const c2 = await connect({ token: 't', fetchImpl: adCall.fetchImpl });
+        const r2 = (await c2.callTool({
+            name: 'search_google_ads',
+            arguments: { targets: ['shopify.com'], region: 'FR', minActiveDays: 30, includeDetails: true, maxAdsPerTarget: 5 },
+        })) as Result;
+        expect(adCall.calls[0]!.body).toMatchObject({ minActiveDays: 30, includeDetails: true });
+        expect(r2.structuredContent!.items[0]).toMatchObject({ activeDays: 120, euImpressionsMin: 60000, countriesShown: ['DE', 'FR'] });
+
+        const tgCall = fakeApify([{ channel: 'durov', messageId: 1, text: 'Watching $TON', viewsNum: 500000, engagementRatePct: 4.2, tickers: ['$TON'], externalDomains: ['fragment.com'], reactions: [] }]);
+        const c3 = await connect({ token: 't', fetchImpl: tgCall.fetchImpl });
+        const r3 = (await c3.callTool({
+            name: 'get_telegram_channel_posts',
+            arguments: { channels: ['durov'], minViews: 100000, excludeForwarded: true, maxPostsPerChannel: 5 },
+        })) as Result;
+        expect(tgCall.calls[0]!.body).toMatchObject({ minViews: 100000, excludeForwarded: true });
+        expect(r3.structuredContent!.items[0]).toMatchObject({ tickers: ['$TON'], externalDomains: ['fragment.com'], engagementRatePct: 4.2 });
     });
 });
 

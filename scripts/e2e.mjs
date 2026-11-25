@@ -22,6 +22,7 @@ const cases = [
     ['search_google_ads', { targets: ['stripe.com'], maxAdsPerTarget: 3 }, 3],
     ['get_telegram_channel_posts', { channels: ['durov'], maxPostsPerChannel: 3 }, 3],
     ['verify_eu_company', { queries: ['FR22424761419'] }, 1],
+    ['search_eu_tenders', { sources: ['EU_TED'], maxResultsPerSource: 3 }, 3],
 ];
 let failed = 0;
 for (const [name, args, expected] of cases) {

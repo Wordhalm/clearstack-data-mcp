@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 (2026-11-25)
+
+- Added new 5th domain tool `search_eu_tenders` backed by `clearstack-data/eu-public-tenders-monitor` (EU TED, France BOAMP, UK Find a Tender) with `noticeCategory` (`OPEN_TENDER` / `CONTRACT_AWARD` / `PLANNING`), `minValueEur`, CPV, and country filtering.
+- Upgraded `verify_eu_company` with live `screenSanctions` (US OFAC SDN/ALT, EU FSF, UN SC on companies & officers) and `kybRiskFlags`.
+- Upgraded `search_ats_jobs` with `requiredSkills` (supporting aliases like `k8s`, `golang`, `postgres`), `seniorityLevels`, `minSalaryUsd` (multi-currency USD equivalents), structured salaries, `techStack`, `seniority`, `workplaceType`, and clean `descriptionSnippet`.
+- Upgraded `search_google_ads` with `minActiveDays`, `includeDetails`, `activeDays`, `countriesShown`, `euImpressionsMin/Max`, and flattened EU DSA targeting criteria.
+- Upgraded `get_telegram_channel_posts` with `minViews`, `excludeForwarded`, `externalDomains`, `mentions`, `tickers`, `cryptoAddresses` (EVM/BTC/SOL), and `engagementRatePct`.
+
 ## 0.2.2 (2026-11-24)
 
 - Documented every input parameter across all 5 tools (100% schema coverage, adding descriptions to `format` and `maxAdsPerTarget` in `search_google_ads`).

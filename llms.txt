@@ -1,22 +1,23 @@
 # ClearStack Data MCP Server
 
-> Model Context Protocol (MCP) server exposing four live B2B research tools (career-site job openings, Google Ads Transparency Center, public Telegram channels, EU VAT/KYB company registries) via Apify Actors with per-call spending caps.
+> Model Context Protocol (MCP) server exposing five live B2B & OSINT research tools (career-site job openings with salaries/tech stack, Google Ads Transparency + EU DSA, public Telegram channels with OSINT/crypto extraction, EU VAT/KYB + OFAC/EU/UN sanctions screening, and EU/FR/UK public tenders) via Apify Actors with per-call spending caps.
 
 ## Install
 
 - npm package: `clearstack-data-mcp` (`npx -y clearstack-data-mcp`)
 - Claude Code (token): `claude mcp add clearstack-data -e APIFY_TOKEN=your_token -- npx -y clearstack-data-mcp`
-- Claude Code (zero-token Apify OAuth): `claude mcp add --transport http clearstack-apify "https://mcp.apify.com/?tools=clearstack-data/career-site-jobs-search,clearstack-data/google-ads-transparency-scraper,clearstack-data/telegram-public-channel-monitor,clearstack-data/eu-company-kyb-enricher"`
+- Claude Code (zero-token Apify OAuth): `claude mcp add --transport http clearstack-apify "https://mcp.apify.com/?tools=clearstack-data/career-site-jobs-search,clearstack-data/google-ads-transparency-scraper,clearstack-data/telegram-public-channel-monitor,clearstack-data/eu-company-kyb-enricher,clearstack-data/eu-public-tenders-monitor"`
 - Official MCP Registry ID: `io.github.Wordhalm/clearstack-data-mcp`
 - Required env var: `APIFY_TOKEN` (from https://console.apify.com/settings/integrations)
 - Runtime: Node.js 20+, stdio transport, read-only tools
 
 ## Tools
 
-- `search_ats_jobs`: Search open roles across 25,787 company career sites on Greenhouse, Lever, Ashby, and SmartRecruiters. Parameters: `companies`, `keywords`, `location`, `remoteOnly`, `maxJobs` (1-500). Pricing: $0.002 + $0.0015/job on Apify.
-- `search_google_ads`: Query live and recent ads from Google Ads Transparency Center (Search, Display, YouTube). Parameters: `targets` (1-10 domains/IDs), `region`, `format`, `dateRangeDays`, `maxAdsPerTarget` (1-100). Pricing: $0.002 + $0.0012/ad on Apify.
-- `get_telegram_channel_posts`: Fetch recent posts from public Telegram channels without a Telegram account. Parameters: `channels` (1-10), `maxPostsPerChannel` (1-200), `sinceDate`, `keywords`. Pricing: $0.002 + $0.0015/post on Apify.
-- `verify_eu_company`: Validate EU VAT numbers via VIES and enrich from official company registries (France SIRENE, Switzerland Zefix, Norway Brreg, Finland PRH, GLEIF LEI). Parameters: `queries` (1-200), `defaultCountry`. Pricing: $0.004/company on Apify.
+- `search_ats_jobs`: Search open roles across 25,787 company career sites on Greenhouse, Lever, Ashby, and SmartRecruiters with multi-currency salary parsing, 65+ tech stack skills, seniority, and workplaceType. Parameters: `companies`, `keywords`, `requiredSkills`, `seniorityLevels`, `minSalaryUsd`, `location`, `remoteOnly`, `maxJobs` (1-500). Pricing: $0.002 + $0.0015/job on Apify.
+- `search_google_ads`: Query live and recent ads from Google Ads Transparency Center (Search, Display, YouTube) with activeDays and optional EU DSA impressions/targeting. Parameters: `targets` (1-10 domains/IDs), `region`, `format`, `dateRangeDays`, `minActiveDays`, `includeDetails`, `maxAdsPerTarget` (1-100). Pricing: $0.002 + $0.0012/ad on Apify.
+- `get_telegram_channel_posts`: Fetch recent posts from public Telegram channels without a Telegram account, with externalDomains, tickers, cryptoAddresses (EVM/BTC/SOL), and engagement metrics. Parameters: `channels` (1-10), `maxPostsPerChannel` (1-200), `sinceDate`, `keywords`, `minViews`, `excludeForwarded`. Pricing: $0.002 + $0.0015/post on Apify.
+- `verify_eu_company`: Validate EU VAT numbers via VIES, enrich official registries (France SIRENE, Switzerland Zefix, Norway Brreg, Finland PRH, GLEIF LEI), and screen companies & officers live against US OFAC SDN/ALT, EU FSF, and UN SC sanctions lists. Parameters: `queries` (1-200), `defaultCountry`, `screenSanctions` (default true). Pricing: $0.004/company on Apify.
+- `search_eu_tenders`: Search European public procurement notices and contract awards from EU TED, France BOAMP, and UK Find a Tender (OCDS). Parameters: `sources`, `keywords`, `countries`, `cpvCodes`, `noticeCategory`, `minValueEur`, `publishedSinceDays`, `onlyOpenTenders`, `maxResultsPerSource`. Pricing: $0.002/tender on Apify.
 - `get_run_results`: Collect remaining items when a large search exceeds the 45s wait cap (`finished: false`). Free.
 
 ## Links

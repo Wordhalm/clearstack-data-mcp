@@ -1,15 +1,16 @@
 ---
-description: Guidelines for running live B2B research signals with the ClearStack Data MCP tools (ATS jobs, Google Ads Transparency, public Telegram channels, EU VAT/KYB registries).
+description: Guidelines for running live B2B & OSINT research signals with the ClearStack Data MCP tools (ATS jobs, Google Ads Transparency, public Telegram channels, EU VAT/KYB & sanctions, EU/FR/UK public tenders).
 globs:
 alwaysApply: false
 ---
 
 # ClearStack Data B2B Signals
 
-Use the `clearstack-data` MCP server when the user asks for live public B2B signals:
+Use the `clearstack-data` MCP server when the user asks for live public B2B or OSINT signals:
 
-- **Hiring signals & direct career-site jobs** -> call `search_ats_jobs` (25,787 employers on Greenhouse, Lever, Ashby, SmartRecruiters). Pass concrete `companies` names or `ats:slug` pairs and keep `maxJobs` bounded to avoid unnecessary spend.
-- **Competitor Google Ads** -> call `search_google_ads` with domains (`stripe.com`), ISO-2 `region`, `format`, and `dateRangeDays`.
-- **Public Telegram channels** -> call `get_telegram_channel_posts` with channel usernames (`durov`, `telegram`), `sinceDate`, and optional `keywords`.
-- **EU company & VAT verification (KYB)** -> call `verify_eu_company` with EU VAT numbers, French SIREN/SIRET, Swiss UID, Norwegian org numbers, or company names with `defaultCountry`. Treat `vatValid: null` as a temporary VIES outage (retry later), not invalid.
+- **Hiring signals & direct career-site jobs** -> call `search_ats_jobs` (25,787 employers on Greenhouse, Lever, Ashby, SmartRecruiters). Filter with `companies`, `keywords`, `requiredSkills` (`k8s`, `golang`, `Python`), `seniorityLevels`, `minSalaryUsd`, `location`, and `remoteOnly`.
+- **Competitor Google Ads** -> call `search_google_ads` with domains (`stripe.com`), ISO-2 `region`, `format`, `dateRangeDays`, optional `minActiveDays` (evergreen winning ads), and `includeDetails: true` for EU DSA impressions & targeting.
+- **Public Telegram channels (OSINT & Finance)** -> call `get_telegram_channel_posts` with channel usernames (`durov`, `telegram`), `sinceDate`, `keywords`, `minViews`, and `excludeForwarded` to extract posts, engagement, tickers, crypto addresses, and external domains.
+- **EU company KYB, VAT & Sanctions** -> call `verify_eu_company` with EU VAT numbers, French SIREN/SIRET, Swiss UID, Norwegian org numbers, LEI codes, or company names with `defaultCountry` (`screenSanctions: true` checks OFAC/EU/UN live on companies & officers). Treat `vatValid: null` as a temporary VIES outage (retry later), not invalid.
+- **European public tenders & contract awards** -> call `search_eu_tenders` across `EU_TED`, `FR_BOAMP`, and `UK_FTS` with `noticeCategory` (`OPEN_TENDER` or `CONTRACT_AWARD`), `minValueEur`, `countries`, `cpvCodes`, and `keywords`.
 - **Long runs (`finished: false`)** -> call `get_run_results` with the returned `runId` instead of starting a new run.

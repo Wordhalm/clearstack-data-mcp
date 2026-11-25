@@ -2,9 +2,9 @@
   "manifest_version": "0.3",
   "name": "clearstack-data-mcp",
   "display_name": "ClearStack Data: B2B Signals",
-  "version": "0.2.2",
-  "description": "Job openings, Google Ads, Telegram posts and EU VAT checks for AI assistants, via Apify.",
-  "long_description": "Ask Claude which companies are hiring for a role, what ads a competitor runs on Google, what a public Telegram channel posted this week, or whether an EU VAT number is valid. Each tool runs a ClearStack Data Actor on Apify with your own Apify API token, and every call carries a spending cap. Typical cost: a few cents per question.",
+  "version": "0.3.0",
+  "description": "ATS jobs, Google Ads, Telegram OSINT, EU KYB/sanctions & public tenders for AI assistants, via Apify.",
+  "long_description": "Ask Claude which companies are hiring with salary & tech stack filters, what Google Ads a competitor runs (with optional EU DSA impressions), what public Telegram channels posted (with OSINT/crypto extraction), whether an EU company passes VAT & OFAC/EU/UN sanctions checks, or which European public tenders and contract awards were published. Each tool runs a ClearStack Data Actor on Apify with your own Apify API token and an automatic spending cap.",
   "author": {
     "name": "ClearStack Data",
     "url": "https://apify.com/clearstack-data"
@@ -45,7 +45,11 @@
     },
     {
       "name": "verify_eu_company",
-      "description": "EU VAT validation (VIES) and official company registry record."
+      "description": "EU VAT validation (VIES), official company registry record, and live OFAC/EU/UN sanctions screening."
+    },
+    {
+      "name": "search_eu_tenders",
+      "description": "European public procurement notices and contract awards from EU TED, France BOAMP, and UK Find a Tender."
     },
     {
       "name": "get_run_results",

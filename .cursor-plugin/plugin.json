@@ -1,8 +1,8 @@
 {
   "name": "clearstack-data-mcp",
   "displayName": "ClearStack Data: B2B Signals",
-  "version": "0.2.2",
-  "description": "Live B2B research MCP server (via Apify): career-site jobs across 25,787 employers, Google Ads Transparency Center, public Telegram channels, and EU VAT/KYB company registries.",
+  "version": "0.3.0",
+  "description": "Live B2B & OSINT research MCP server (via Apify): career-site jobs with salaries & tech stack, Google Ads Transparency + EU DSA, public Telegram channels, EU VAT/KYB + OFAC/EU/UN sanctions, and EU/FR/UK public tenders.",
   "author": {
     "name": "ClearStack Data",
     "url": "https://apify.com/clearstack-data"
